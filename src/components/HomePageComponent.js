@@ -30,8 +30,8 @@ const propertyToDispatchMapper = (dispatch) => ({
         searchArtist(artistName)
             .then(data =>
                 dispatch({type: "SEARCH_ARTIST", artists: data}))
-
 });
+
 
 export default connect
 (stateToPropertyMapper, propertyToDispatchMapper)
