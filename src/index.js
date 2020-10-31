@@ -3,11 +3,18 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {combineReducers, createStore} from "redux";
+import {Provider} from "react-redux";
+import spotifyReducer from "./reducers/SpotifyReducer";
+import HomePageComponent from "./components/HomePageComponent";
+const reducers = combineReducers({spotifyReducer});
+
+const store = createStore(reducers)
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Provider store={store}>
+    <HomePageComponent />
+  </Provider>,
   document.getElementById('root')
 );
 
