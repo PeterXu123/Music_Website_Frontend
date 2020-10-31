@@ -23,7 +23,7 @@ class HomePage extends Component {
             <div>
                 <input onChange={e => this.setState({searchContent: e.target.value})}/>
                 <button onClick={() => this.onSearch()}>Search</button>
-                <h1>{this.state.searchResult != "" ? this.state.searchResult.map(a => a.name) : null}</h1>
+                <h1>{this.state.searchResult !== "" ? this.state.searchResult.map(a => a.name) : null}</h1>
 
             </div>
         );
@@ -31,5 +31,4 @@ class HomePage extends Component {
 }
 
 HomePage.propTypes = {};
-
 export default HomePage;

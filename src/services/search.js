@@ -7,7 +7,7 @@ export class searchService {
     searchSong = (searchContent) => {
         console.log(searchContent)
         let t = {content: searchContent}
-       return  fetch('http://localhost:8887/search', {
+       return  fetch('http://localhost:8887/search/artist', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(t)
