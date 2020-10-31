@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {searchService} from "../services/search";
+import {searchService} from "../services/SpotifyService";
 
 class HomePage extends Component {
     constructor(props) {
@@ -11,12 +11,11 @@ class HomePage extends Component {
         }
     }
     onSearch = () => {
-        new searchService().searchSong(this.state.searchContent)
+        new searchService().searchArtist(this.state.searchContent)
             .then((data) => {
                 console.log(data)
                 this.setState({searchResult: data})
             })
-
     }
     render() {
         return (
