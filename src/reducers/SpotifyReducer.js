@@ -9,6 +9,11 @@ const spotifyReducer = (state = initSpotifyState, action) => {
                 searchResult: action.artists
             }
         }
+        case "SEARCH_SONG": {
+            return {
+                searchResult: action.songs
+            }
+        }
     }
     return state
 }

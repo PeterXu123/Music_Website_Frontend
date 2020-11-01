@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import {combineReducers, createStore} from "redux";
 import {Provider} from "react-redux";
 import spotifyReducer from "./reducers/SpotifyReducer";
-import HomePageComponent from "./components/HomePageComponent";
+import HomePageComponent from "./components/HomePage/HomePageComponent";
 const reducers = combineReducers({spotifyReducer});
 
 const store = createStore(reducers)

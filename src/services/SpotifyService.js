@@ -12,3 +12,17 @@ export const searchArtist = (artistName) => {
     }
 
 
+
+export const searchSong = (song) => {
+    let t = {content: song};
+    return fetch('http://localhost:8887/search/song', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(t)
+    })
+        .then(response => response.json())
+        .then(response => response)
+        .catch((error) =>  console.log("Error message is ", error))
+}
+
+
