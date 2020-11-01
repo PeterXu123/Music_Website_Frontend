@@ -16,7 +16,7 @@ const spotifyReducer = (state = initSpotifyState, action) => {
         }
     }
     return state
-}
+};
 
 
 export default spotifyReducer

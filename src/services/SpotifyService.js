@@ -1,4 +1,3 @@
-
 export const searchArtist = (artistName) => {
         let t = {content: artistName};
         return fetch('http://localhost:8887/search/artist', {
@@ -9,7 +8,7 @@ export const searchArtist = (artistName) => {
             .then(response => response.json())
             .then(response => response)
             .catch((error) =>  console.log("Error message is ", error))
-    }
+    };
 
 
 
@@ -23,6 +22,6 @@ export const searchSong = (song) => {
         .then(response => response.json())
         .then(response => response)
         .catch((error) =>  console.log("Error message is ", error))
-}
+};
 
 
