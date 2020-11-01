@@ -33,7 +33,6 @@ const SongComponent = (props) => {
                     mp3Url === null ? null :
                         <ReactAudioPlayer
                             src= {mp3Url}
-                            autoPlay
                             controls
                         />
                 }
