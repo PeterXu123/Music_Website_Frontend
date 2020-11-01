@@ -6,13 +6,21 @@ import {combineReducers, createStore} from "redux";
 import {Provider} from "react-redux";
 import spotifyReducer from "./reducers/SpotifyReducer";
 import HomePageComponent from "./components/HomePage/HomePageComponent";
+import 'bootstrap/dist/css/bootstrap.css'
+import {
+    BrowserRouter as Router,
+
+} from "react-router-dom";
+import App from "./App";
 const reducers = combineReducers({spotifyReducer});
 
 const store = createStore(reducers)
 
 ReactDOM.render(
   <Provider store={store}>
-    <HomePageComponent />
+      <Router>
+        <App/>
+      </Router>
   </Provider>,
   document.getElementById('root')
 );

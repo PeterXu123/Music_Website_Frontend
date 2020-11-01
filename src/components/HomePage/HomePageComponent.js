@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {searchArtist, searchSong} from "../../services/SpotifyService";
 import {connect} from "react-redux";
 import styles from "./HomePage.module.css"
-import ArtistComponent from "../Results/ArtistComponent";
+import SearchArtistComponent from "../Results/SearchArtistComponent";
 
 class HomePageComponent extends Component {
     constructor(props) {
@@ -27,10 +27,13 @@ class HomePageComponent extends Component {
                 <input type={'radio'} name={"op"} onChange={e => this.setState({op: 'song'})}/> song
 
                 <h1>{this.props.searchResult !== "" ? this.props.searchResult.map(artist =>
-                    <ArtistComponent
+                    <SearchArtistComponent
                         key = {artist.id}
                         name={artist.name}
                         src={artist.images[1].url}
+                        id={artist.id}
+
+
                     />) : null}
                 </h1>
             </div>

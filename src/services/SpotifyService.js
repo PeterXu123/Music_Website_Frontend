@@ -10,6 +10,18 @@ export const searchArtist = (artistName) => {
             .catch((error) =>  console.log("Error message is ", error))
     };
 
+export const searchArtistById = (id) => {
+    let t = {id: id};
+    return fetch('http://localhost:8887/search/artist/id', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(t)
+    })
+        .then(response => response.json())
+        .then(response => response)
+        .catch((error) =>  console.log("Error message is ", error))
+};
+
 
 
 export const searchSong = (song) => {
@@ -24,4 +36,15 @@ export const searchSong = (song) => {
         .catch((error) =>  console.log("Error message is ", error))
 };
 
+export const searchSongsForArtist = (id) => {
+    let t = {id: id};
+    return fetch('http://localhost:8887/search/artist/songs', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(t)
+    })
+        .then(response => response.json())
+        .then(response => response)
+        .catch((error) =>  console.log("Error message is ", error))
+};
 
