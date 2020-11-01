@@ -22,17 +22,14 @@ class HomePageComponent extends Component {
                     <input className={styles.w} onChange={e => this.setState({searchContent: e.target.value})}/>
                     <button onClick={() =>{
                        if ( this.state.op === 'artist' ) {
-                           this.props.history.push('/a')
+                           this.props.history.push('/artist')
                            return this.props.searchArtist(this.state.searchContent)
                        }
                        else {
-                           this.props.history.push('/s')
+                           this.props.history.push('/song')
                            return this.props.searchSong(this.state.searchContent)
                        }
                     }}>
-
-
-
                         Search
                     </button>
                 </div>
@@ -41,7 +38,7 @@ class HomePageComponent extends Component {
 
                 {
 
-                    this.props.location.pathname === '/a' && <h1>{this.props.searchResult !== "" ? this.props.searchResult.map(artist =>
+                    this.props.location.pathname === '/artist' && <h1>{this.props.searchResult !== "" ? this.props.searchResult.map(artist =>
                         <SearchArtistComponent
                             key = {artist.id}
                             artistName={artist.name}
@@ -51,7 +48,7 @@ class HomePageComponent extends Component {
                     </h1>
                 }
                 {
-                    this.props.location.pathname === '/s' && <h1>{this.props.searchResult !== "" ? this.props.searchResult.map(song =>
+                    this.props.location.pathname === '/song' && <h1>{this.props.searchResult !== "" ? this.props.searchResult.map(song =>
                         <SearchSongComponent
                             key = {song.id}
                             songName={song.name}

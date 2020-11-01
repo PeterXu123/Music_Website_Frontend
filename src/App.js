@@ -9,8 +9,8 @@ function App() {
     return (
         <div className="App">
             <Route exact path={"/"} component={HomePageComponent}/>
-            <Route exact path={"/s"} component={HomePageComponent}/>
-            <Route exact path={"/a"} component={HomePageComponent}/>
+            <Route exact path={"/artist"} component={HomePageComponent}/>
+            <Route exact path={"/song"} component={HomePageComponent}/>
             <Route path={"/song/:songId"}
                    render={(props) =>
                        <SongComponent
