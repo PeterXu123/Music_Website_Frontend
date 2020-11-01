@@ -48,3 +48,16 @@ export const searchSongsForArtist = (id) => {
         .catch((error) =>  console.log("Error message is ", error))
 };
 
+
+export const searchSongsById = (songId) => {
+    let t = {id: songId};
+    return fetch('http://localhost:8887/search/song/id', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(t)
+    })
+        .then(response => response.json())
+        .then(response => response)
+        .catch((error) =>  console.log("Error message is ", error))
+};
+

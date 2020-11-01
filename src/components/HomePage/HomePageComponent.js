@@ -3,6 +3,7 @@ import {searchArtist, searchSong} from "../../services/SpotifyService";
 import {connect} from "react-redux";
 import styles from "./HomePage.module.css"
 import SearchArtistComponent from "../Results/SearchArtistComponent";
+import SearchSongComponent from "../Results/SearchSongComponent";
 
 class HomePageComponent extends Component {
     constructor(props) {
@@ -12,30 +13,54 @@ class HomePageComponent extends Component {
         }
     }
 
+
     render() {
         return (
             <div className={styles.center}>
                 <h1>Search</h1>
                 <div className={styles.center}>
                     <input className={styles.w} onChange={e => this.setState({searchContent: e.target.value})}/>
-                    <button onClick={() => this.state.op === 'artist' ?  this.props.searchArtist(this.state.searchContent)
-                    : this.props.searchSong(this.state.searchContent)}>
+                    <button onClick={() =>{
+                       if ( this.state.op === 'artist' ) {
+                           this.props.history.push('/a')
+                           return this.props.searchArtist(this.state.searchContent)
+                       }
+                       else {
+                           this.props.history.push('/s')
+                           return this.props.searchSong(this.state.searchContent)
+                       }
+                    }}>
+
+
+
                         Search
                     </button>
                 </div>
                 <input type={'radio'} name={"op"} defaultChecked onChange={e => this.setState({op: 'artist'})}/> artist
                 <input type={'radio'} name={"op"} onChange={e => this.setState({op: 'song'})}/> song
 
-                <h1>{this.props.searchResult !== "" ? this.props.searchResult.map(artist =>
-                    <SearchArtistComponent
-                        key = {artist.id}
-                        name={artist.name}
-                        src={artist.images[1].url}
-                        id={artist.id}
+                {
 
+                    this.props.location.pathname === '/a' && <h1>{this.props.searchResult !== "" ? this.props.searchResult.map(artist =>
+                        <SearchArtistComponent
+                            key = {artist.id}
+                            artistName={artist.name}
+                            src={artist.images[1].url}
+                            artistId={artist.id}
+                        />) : null}
+                    </h1>
+                }
+                {
+                    this.props.location.pathname === '/s' && <h1>{this.props.searchResult !== "" ? this.props.searchResult.map(song =>
+                        <SearchSongComponent
+                            key = {song.id}
+                            songName={song.name}
+                            src={song.images[1].url}
+                            songId={song.id}
+                        />) : null}
+                    </h1>
+                }
 
-                    />) : null}
-                </h1>
             </div>
         );
     }

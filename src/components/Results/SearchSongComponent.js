@@ -1,15 +1,15 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 
-const SearchArtistComponent = (props) => {
+const SearchSongComponent = (props) => {
     return (
         <div>
             <img src={props.src} alt="spotify image"/>
-            <Link to={`/artist/${props.artistId}`}>
-            <h3>{props.artistName}</h3>
+            <Link to={`/song/${props.songId}`}>
+                <h3>{props.songName}</h3>
             </Link>
         </div>
     );
 };
 
-export default SearchArtistComponent;
+export default SearchSongComponent;
