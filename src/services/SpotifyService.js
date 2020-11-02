@@ -30,7 +30,7 @@ export const searchArtistById = (id) => {
 
 export const searchSong = (song) => {
     let t = {content: song};
-    return fetch(`${serverUrl}/artist/song`, {
+    return fetch(`${serverUrl}/song`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(t)
@@ -42,7 +42,7 @@ export const searchSong = (song) => {
 
 export const searchSongsForArtist = (id) => {
     let t = {id: id};
-    return fetch(`${serverUrl}/songs`, {
+    return fetch(`${serverUrl}/artist/songs`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(t)
