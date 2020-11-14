@@ -20,7 +20,7 @@ const ArtistComponent = (props) => {
         <div>
             <div className={styles.center}>
             {art === '' ? null :
-            <img src={art.images[2].url}/>}
+            <img src={art.images.length != 0 ? art.images[2].url : ''}/>}
             <h1>{art.name}</h1>
             </div>
             <div className={`list-group`}>

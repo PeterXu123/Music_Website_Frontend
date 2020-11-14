@@ -42,7 +42,7 @@ class HomePageComponent extends Component {
                         <SearchArtistComponent
                             key = {artist.id}
                             artistName={artist.name}
-                            src={artist.images[1].url}
+                            src={artist.images.length  != 0 ? artist.images[1].url: 'https://www.pngkit.com/png/detail/20-209584_small-anonymous-person-clip-art.png'}
                             artistId={artist.id}
                         />) : null}
                     </h1>
