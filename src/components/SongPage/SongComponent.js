@@ -2,11 +2,15 @@ import React, {useEffect, useState} from "react";
 import {searchSongsById, getSongAudioById} from "../../services/SpotifyService";
 import styles from "../ArtistPage/ArtistComponent.module.css";
 import ReactAudioPlayer from 'react-audio-player';
+import {Link} from "react-router-dom";
 
 
 const SongComponent = (props) => {
     const [songInfo, setSongInfo] = useState('');
     const [mp3Url, setmp3Url] = useState('');
+    const goBack = () => {
+        props.history.goBack();
+    }
     useEffect(() => {
 
         searchSongsById(props.songId)
@@ -24,6 +28,9 @@ const SongComponent = (props) => {
     return (
 
         <div>
+            <button onClick={() => goBack()}>
+            Back
+            </button>
             <div className={styles.center}>
                 {songInfo === '' ? null :
                     <img src={songInfo.album.images[1].url}/>}

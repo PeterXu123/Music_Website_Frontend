@@ -4,6 +4,7 @@ import React from "react";
 import {Switch, Route, Redirect} from "react-router";
 import ArtistComponent from "./components/ArtistPage/ArtistComponent";
 import SongComponent from "./components/SongPage/SongComponent";
+import AlbumComponent from "./components/AlbumComponent/AlbumComponent";
 
 function App() {
     return (
@@ -23,6 +24,14 @@ function App() {
             <Route path={"/artist/:id"}
                    render={(props) =>
                        <ArtistComponent
+                           {...props}
+                           id={props.match.params.id}
+                       />
+                   }
+            />
+            <Route path={"/album/:id"}
+                   render={(props) =>
+                       <AlbumComponent
                            {...props}
                            id={props.match.params.id}
                        />
