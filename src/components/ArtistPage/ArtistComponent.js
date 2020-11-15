@@ -21,7 +21,8 @@ const ArtistComponent = (props) => {
         <div>
             <div className={styles.center}>
             {art === '' ? null :
-            <img src={art.images.length != 0 ? art.images[2].url : ''}/>}
+            <img width={'300'} height={'300'}  src={art.images.length != 0 ? art.images[2].url : ''}/>}
+
             <h1>{art.name}</h1>
             </div>
             <div className={`list-group`}>
@@ -29,7 +30,8 @@ const ArtistComponent = (props) => {
                     <Link to={{
                         pathname: `/album/${album.id}`, state: {imgurl: album.images}}}>
                     <li key={album.id} className={'list-group-item'}>
-                    <img src={album.images[2].url}/>
+                    <img width={'50'} height={'50'} src={album.images[2].url}/>
+                    &nbsp;&nbsp;
                     {album.name}
                 </li>
                     </Link>
