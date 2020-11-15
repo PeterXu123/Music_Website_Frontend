@@ -18,19 +18,15 @@ class HomePageComponent extends Component {
         return (
             <div className={styles.center}>
                 <h1>Search</h1>
-                {this.state.searchContent}
                 <div className={styles.center}>
                     <input className={styles.w} onChange={e => this.setState({searchContent: e.target.value})}/>
                     <button onClick={() => {
                        if ( this.state.op === 'artist' ) {
                            this.props.history.push('/artist')
-                           console.log('artist selected')
                            return this.props.searchArtist(this.state.searchContent)
                        }
                        else {
                            this.props.history.push('/song')
-                           console.log('song selected')
-                           console.log(this.state.searchContent)
                            return this.props.searchSong(this.state.searchContent)
                        }
                     }}>
