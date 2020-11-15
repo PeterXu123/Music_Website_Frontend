@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import styles from "./ArtistComponent.module.css"
-import {searchSongsForArtist, searchArtistById} from "../../services/SpotifyService";
+import {searchAlbumsForArtist, searchArtistById} from "../../services/SpotifyService";
 
 const ArtistComponent = (props) => {
     const [info, setInfo] = useState('');
@@ -9,7 +9,7 @@ const ArtistComponent = (props) => {
     useEffect(() => {
         searchArtistById(props.id)
             .then((d) => setArt(d));
-        searchSongsForArtist(props.id)
+        searchAlbumsForArtist(props.id)
             .then((data) => {
                 console.log(data)
                 setInfo(data)

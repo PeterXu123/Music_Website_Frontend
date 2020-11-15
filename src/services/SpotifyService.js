@@ -4,7 +4,7 @@ const serverUrl = 'https://webdev-music-website-server.herokuapp.com/search'
 
 export const searchArtist = (artistName) => {
         let t = {content: artistName};
-        return fetch(`${serverUrl}/artist`, {
+        return fetch(`${localUrl}/artist`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(t)
@@ -19,7 +19,7 @@ export const searchArtist = (artistName) => {
 
 export const searchArtistById = (id) => {
     let t = {id: id};
-    return fetch(`${serverUrl}/artist/id`, {
+    return fetch(`${localUrl}/artist/id`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(t)
@@ -33,7 +33,7 @@ export const searchArtistById = (id) => {
 
 export const searchSong = (song) => {
     let t = {content: song};
-    return fetch(`${serverUrl}/song`, {
+    return fetch(`${localUrl}/song`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(t)
@@ -46,9 +46,9 @@ export const searchSong = (song) => {
         .catch((error) =>  console.log("Error message is ", error))
 };
 
-export const searchSongsForArtist = (id) => {
+export const searchAlbumsForArtist = (id) => {
     let t = {id: id};
-    return fetch(`${serverUrl}/artist/songs`, {
+    return fetch(`${localUrl}/artist/albums`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(t)
@@ -61,7 +61,7 @@ export const searchSongsForArtist = (id) => {
 
 export const searchSongsById = (songId) => {
     let t = {id: songId};
-    return fetch(`${serverUrl}/song/id`, {
+    return fetch(`${localUrl}/song/id`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(t)

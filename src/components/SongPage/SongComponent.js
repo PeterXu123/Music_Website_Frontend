@@ -11,10 +11,11 @@ const SongComponent = (props) => {
 
         searchSongsById(props.songId)
             .then((d) => {
-                console.log(d)
-                console.log(d.tracks.items[0].preview_url)
+
+                console.log(d.album.images[1].url);
+                console.log(d.preview_url)
                 setSongInfo(d)
-                setmp3Url(d.tracks.items[0].preview_url)
+                setmp3Url(d.preview_url)
 
             });
     }, []);
@@ -25,7 +26,7 @@ const SongComponent = (props) => {
         <div>
             <div className={styles.center}>
                 {songInfo === '' ? null :
-                    <img src={songInfo.images[1].url}/>}
+                    <img src={songInfo.album.images[1].url}/>}
                 <h3>{songInfo.name}</h3>
                 <h2>{}</h2>
                 <br/>
