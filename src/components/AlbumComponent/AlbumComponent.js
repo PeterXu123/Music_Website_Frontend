@@ -31,7 +31,7 @@ const AlbumComponent = (props) => {
                     </Link>
                     <ReactAudioPlayer className={`${styles.right}`}
                         src= {song.preview_url}
-                        controls
+                                      controls controlsList="nodownload"
                     />
 
                 </div>)

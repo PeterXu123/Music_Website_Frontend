@@ -41,7 +41,7 @@ const SongComponent = (props) => {
                     mp3Url === null ? null :
                         <ReactAudioPlayer
                             src= {mp3Url}
-                            controls
+                            controls controlsList="nodownload"
                         />
                 }
 
