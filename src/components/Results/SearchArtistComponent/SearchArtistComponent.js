@@ -10,7 +10,6 @@ import styles from "./SearchArtistComponent.module.css"
 // />
 const SearchArtistComponent = (props) => {
     useEffect(() => {
-        console.log(props.searchResult)
     }, [])
 
     return (

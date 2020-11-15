@@ -9,24 +9,28 @@ class HomePageComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            op: "artist"
+            op: "artist",
+            searchContent: ''
         }
     }
-
-
+    
     render() {
         return (
             <div className={styles.center}>
                 <h1>Search</h1>
+                {this.state.searchContent}
                 <div className={styles.center}>
                     <input className={styles.w} onChange={e => this.setState({searchContent: e.target.value})}/>
-                    <button onClick={() =>{
+                    <button onClick={() => {
                        if ( this.state.op === 'artist' ) {
                            this.props.history.push('/artist')
+                           console.log('artist selected')
                            return this.props.searchArtist(this.state.searchContent)
                        }
                        else {
                            this.props.history.push('/song')
+                           console.log('song selected')
+                           console.log(this.state.searchContent)
                            return this.props.searchSong(this.state.searchContent)
                        }
                     }}>
@@ -36,46 +40,27 @@ class HomePageComponent extends Component {
                 <input className={`${styles.rbutton}`} type={'radio'} name={"op"} defaultChecked onChange={e => this.setState({op: 'artist'})}/> artist
                 &nbsp;
                 <input className={`${styles.rbutton}`} type={'radio'} name={"op"} onChange={e => this.setState({op: 'song'})}/> song
-
                 {
-
-                    this.props.location.pathname === '/artist' && <h1>{this.props.searchResult !== "" ?
-                        // this.props.searchResult.map(artist =>
-                        //
-                        // <SearchArtistComponent
-                        //     key = {artist.id}
-                        //     artistName={artist.name}
-                        //     src={artist.images.length  != 0 ? artist.images[1].url: 'https://www.pngkit.com/png/detail/20-209584_small-anonymous-person-clip-art.png'}
-                        //     artistId={artist.id}
-                        // />)
-                        <SearchArtistComponent searchResult = {this.props.searchResult}></SearchArtistComponent>
-
-                        :
-
-                        null}
-                    </h1>
-                }
-                {
-                    this.props.location.pathname === '/song' && <h1>{this.props.searchResult !== "" ?
-                        <SearchSongComponent searchResult={this.props.searchResult}></SearchSongComponent>
-                        // this.props.searchResult.map(song =>
-                        // <SearchSongComponent
-                        //     key = {song.id}
-                        //     songName={song.name}
-                        //     src={song.images[1].url}
-                        //     songId={song.id}
-                        // />)
+                    this.props.location.pathname === '/song' && this.props.condition === 1 && <h1>{this.props.searchResult !== "" ?
+                        <SearchSongComponent searchResult={this.props.searchResult}/>
                         : null}
                     </h1>
                 }
-
+                {
+                    this.props.location.pathname === '/artist' && this.props.condition === 0 && <h1>{this.props.searchResult !== "" ?
+                        <SearchArtistComponent searchResult = {this.props.searchResult}/>
+                        :
+                        null}
+                    </h1>
+                }
             </div>
         );
     }
 }
 
 const stateToPropertyMapper = (state) => ({
-    searchResult: state.spotifyReducer.searchResult
+    searchResult: state.spotifyReducer.searchResult,
+    condition: state.spotifyReducer.condition
 });
 
 const propertyToDispatchMapper = (dispatch) => ({
@@ -83,6 +68,7 @@ const propertyToDispatchMapper = (dispatch) => ({
         searchArtist(artistName)
             .then(data =>
                 dispatch({type: "SEARCH_ARTIST", artists: data})),
+
     searchSong: (songName) =>
         searchSong(songName)
             .then(data =>

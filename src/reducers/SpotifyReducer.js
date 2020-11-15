@@ -1,17 +1,21 @@
 const initSpotifyState = {
-    searchResult: ''
+    searchResult: '',
+    condition : 0
 };
 
 const spotifyReducer = (state = initSpotifyState, action) => {
     switch (action.type) {
         case "SEARCH_ARTIST": {
             return {
-                searchResult: action.artists
+                searchResult: action.artists,
+                condition: 0
             }
         }
         case "SEARCH_SONG": {
             return {
-                searchResult: action.songs
+                searchResult: action.songs,
+                condition: 1
+
             }
         }
     }

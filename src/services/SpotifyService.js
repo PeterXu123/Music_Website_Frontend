@@ -11,7 +11,6 @@ export const searchArtist = (artistName) => {
         })
             .then(response => response.json())
             .then(response => {
-                console.log(response)
                 return response;
             })
             .catch((error) =>  console.log("Error message is ", error))
@@ -33,6 +32,7 @@ export const searchArtistById = (id) => {
 
 export const searchSong = (song) => {
     let t = {content: song};
+    console.log(song)
     return fetch(`${serverUrl}/song`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
