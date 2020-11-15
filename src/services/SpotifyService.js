@@ -10,7 +10,10 @@ export const searchArtist = (artistName) => {
             body: JSON.stringify(t)
         })
             .then(response => response.json())
-            .then(response => response)
+            .then(response => {
+                console.log(response)
+                return response;
+            })
             .catch((error) =>  console.log("Error message is ", error))
     };
 
@@ -36,7 +39,10 @@ export const searchSong = (song) => {
         body: JSON.stringify(t)
     })
         .then(response => response.json())
-        .then(response => response)
+        .then(response => {
+            console.log(response)
+            return response
+        })
         .catch((error) =>  console.log("Error message is ", error))
 };
 

@@ -11,7 +11,7 @@ const ArtistComponent = (props) => {
             .then((d) => setArt(d));
         searchSongsForArtist(props.id)
             .then((data) => {
-
+                console.log(data)
                 setInfo(data)
             })
     }, []);
