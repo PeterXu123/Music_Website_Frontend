@@ -5,6 +5,9 @@ import {Switch, Route, Redirect} from "react-router";
 import ArtistComponent from "./components/ArtistPage/ArtistComponent";
 import SongComponent from "./components/SongPage/SongComponent";
 import AlbumComponent from "./components/AlbumComponent/AlbumComponent";
+import Register from "./components/UserComponent/Register";
+import Profile from "./components/UserComponent/Profile";
+import Login from "./components/UserComponent/Login";
 
 function App() {
     return (
@@ -12,6 +15,10 @@ function App() {
             <Route exact path={"/"} component={HomePageComponent}/>
             <Route exact path={"/artist"} component={HomePageComponent}/>
             <Route exact path={"/song"} component={HomePageComponent}/>
+            <Route exact path={"/register"} component = {Register}/>
+            <Route exact path={"/login"} component = {Login}/>
+            <Route exact path={"/profile"} component = {Profile}/>
+
             <Route path={"/song/:songId"}
                    render={(props) =>
                        <SongComponent
