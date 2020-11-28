@@ -10,12 +10,19 @@ export default class Register extends React.Component {
         verifyPassword: ''
     }
 
-    register = (user) =>
-        register(user)
-            .then(newUser => {
-                console.log(newUser)
-                this.props.history.push('/profile')
-            })
+    register = (user) => {
+        if(user.password !== user.verifyPassword) {
+            alert("Password don't match");
+        }
+        else {
+            register(user)
+                .then(newUser => {
+                    console.log(newUser)
+                    this.props.history.push('/profile')
+                })
+        }
+    }
+
 
     render() {
         return(
