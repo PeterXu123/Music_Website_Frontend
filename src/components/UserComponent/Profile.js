@@ -2,10 +2,19 @@ import React from "react";
 import {profile} from "../../services/UserServices";
 
 export default class Profile extends React.Component {
-
+    state = {
+        profile: {
+            username: ''
+        }
+    }
     componentDidMount() {
         profile()
-            .then(profile => console.log(profile))
+            .then(profile => {
+                console.log(profile)
+                this.setState({
+                    profile: profile
+                })
+            })
     }
 
     render() {
@@ -34,6 +43,7 @@ export default class Profile extends React.Component {
                     </div>
                 </nav>
                 <h1>Profile</h1>
+                 Username: {this.state.username}
             </div>
         )
     }

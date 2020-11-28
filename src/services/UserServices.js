@@ -6,7 +6,9 @@ export const register = (user) =>
         body: JSON.stringify(user),
         headers: {
             'content-type': 'application/json'
-        }
+        },
+        credentials: "include"
+
     }).then(response => response.json())
 
 
@@ -22,5 +24,6 @@ export const login = (user) =>
 
 export const profile = () =>
     fetch(`${localUrl}/profile`, {
-        method: 'POST'
+        method: 'POST',
+        credentials: "include"
     }).then(response => response.json())
