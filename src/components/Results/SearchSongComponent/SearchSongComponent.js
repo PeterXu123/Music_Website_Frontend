@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {Link} from "react-router-dom";
-import styles from "./SearchArtistComponent/SearchArtistComponent.module.css";
+import styles from "../SearchArtistComponent/SearchArtistComponent.module.css";
 
 const SearchSongComponent = (props) => {
     useEffect(() =>

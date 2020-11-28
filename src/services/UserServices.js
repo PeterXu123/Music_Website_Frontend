@@ -1,6 +1,5 @@
 const localUrl = 'http://localhost:8887'
 
-
 export const register = (user) =>
     fetch(`${localUrl}/register`, {
         method: 'POST',
@@ -9,6 +8,7 @@ export const register = (user) =>
             'content-type': 'application/json'
         }
     }).then(response => response.json())
+
 
 export const login = (user) =>
     fetch(`${localUrl}/login`, {
