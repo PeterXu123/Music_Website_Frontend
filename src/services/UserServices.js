@@ -1,7 +1,7 @@
 const localUrl = 'http://localhost:8887'
 
 export const register = (user) =>
-    fetch(`${localUrl}/register`, {
+    fetch(`${localUrl}/users/register`, {
         method: 'POST',
         body: JSON.stringify(user),
         headers: {
@@ -13,7 +13,7 @@ export const register = (user) =>
 
 
 export const login = (user) =>
-    fetch(`${localUrl}/login`, {
+    fetch(`${localUrl}/users/login`, {
         method: 'POST',
         body: JSON.stringify(user),
         headers: {
@@ -24,7 +24,12 @@ export const login = (user) =>
 
 
 export const profile = () =>
-    fetch(`${localUrl}/profile`, {
-        method: 'POST',
+    fetch(`${localUrl}/users/profile`, {
+        method: 'GET',
         credentials: "include"
-    }).then(response => response.json())
+    }).then(response => {
+        console.log(response)
+        return response.json()
+    })
+        .
+    catch(error => console.log(error))

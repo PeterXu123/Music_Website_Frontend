@@ -4,16 +4,26 @@ import {profile} from "../../services/UserServices";
 export default class Profile extends React.Component {
     state = {
         profile: {
-            username: ''
+            username: 'a'
         }
     }
     componentDidMount() {
         profile()
             .then(profile => {
-                console.log(profile)
-                this.setState({
-                    profile: profile
-                })
+                if(profile.status === 403) {
+                    this.props.history.push('/login')
+                }
+                else {
+                    console.log(profile)
+                    this.setState({
+                        profile: profile
+                    })
+                }
+
+            })
+            .catch(error => {
+                console.log(error)
+                this.props.history.push('/login')
             })
     }
 
@@ -43,7 +53,7 @@ export default class Profile extends React.Component {
                     </div>
                 </nav>
                 <h1>Profile</h1>
-                 Username: {this.state.username}
+                 Username: {this.state.profile.username}
             </div>
         )
     }
