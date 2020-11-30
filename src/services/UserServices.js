@@ -22,6 +22,15 @@ export const login = (user) =>
         credentials: "include"
     }).then(response => response.json())
 
+export const logout = () =>
+    fetch(`${localUrl}/users/logout`, {
+        method: 'GET',
+        headers: {
+            'content-type': 'application/json'
+        },
+        credentials: "include"
+    }).then(response => response)
+
 
 export const profile = () =>
     fetch(`${localUrl}/users/profile`, {
