@@ -1,14 +1,18 @@
 import React, {useEffect, useState} from "react";
-import {searchSongsById, getSongAudioById} from "../../services/SpotifyService";
+import {searchSongsById, getSongAudioById, searchArtist, searchSong} from "../../services/SpotifyService";
 import styles from "../ArtistPage/ArtistComponent.module.css";
 import ReactAudioPlayer from 'react-audio-player';
-import {Link} from "react-router-dom";
+import "./SongPage.css"
 import CommentComponent from "../CommentsComponent/CommentComponent/Comment";
+import Navbar from "../UserComponent/Navbar/Navbar";
+import {connect} from "react-redux";
 
 
 const SongComponent = (props) => {
+
     const [songInfo, setSongInfo] = useState('');
     const [mp3Url, setmp3Url] = useState('');
+
     const goBack = () => {
         props.history.goBack();
     }
@@ -16,9 +20,7 @@ const SongComponent = (props) => {
 
         searchSongsById(props.songId)
             .then((d) => {
-
-                console.log(d.album.images[1].url);
-                console.log(d.preview_url)
+                console.log(props)
                 setSongInfo(d)
                 setmp3Url(d.preview_url)
 
@@ -27,17 +29,24 @@ const SongComponent = (props) => {
 
 
     return (
-
         <div>
-            <button onClick={() => goBack()}>
+            <Navbar></Navbar>
+            <li className="btn" onClick={() => goBack()}>
             Back
-            </button>
+            </li>
+
             <div className={styles.center}>
                 {songInfo === '' ? null :
                     <img src={songInfo.album.images[1].url}/>}
                 <h3>{songInfo.name}</h3>
-                <h2>{}</h2>
+
+
+                <i className="empty-heart fa fa-2x fa-heart"></i>
+                <i className="red-heart fa fa-2x fa-heart"></i>
+
+
                 <br/>
+
                 {
                     mp3Url === null ? null :
                         <ReactAudioPlayer
@@ -46,13 +55,13 @@ const SongComponent = (props) => {
                         />
                 }
 
+
             </div>
-            <div     style={{
+            <div
+                style={{
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-
-
             }}>
                 <br/>
                 <CommentComponent/>
@@ -61,4 +70,24 @@ const SongComponent = (props) => {
     )
 
 }
-export default SongComponent;
+
+
+const stateToPropertyMapper = (state) => ({
+    user: state.userReducer.user,
+    expired: state.userReducer.expired,
+    rest: state.userReducer.rest,
+
+});
+
+const propertyToDispatchMapper = (dispatch) => ({
+    reconnect: (user) => dispatch({type: "CONNECT", user: user.username, rest: user.rest, expired: user.expired}),
+    logout: () => dispatch({type: "LOGOUT"})
+
+});
+
+
+export default connect
+(stateToPropertyMapper, propertyToDispatchMapper)
+(SongComponent)
+
+

@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import {logout} from "../../../services/UserServices";
 import {withRouter} from "react-router";
 import {Link, NavLink} from "react-router-dom";
 import styles from './Navbar.module.css'
 import {connect} from "react-redux";
+
 class Navbar extends Component {
     constructor(props) {
         super(props);
@@ -58,12 +58,6 @@ class Navbar extends Component {
 
                             </div>
                         }
-
-
-
-
-
-
 
                     </ul>
                 </div>

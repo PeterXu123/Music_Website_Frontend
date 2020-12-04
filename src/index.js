@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import "semantic-ui-css/semantic.min.css"
 import reportWebVitals from './reportWebVitals';
+import { FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import "font-awesome/css/font-awesome.css"
 import {combineReducers, createStore} from "redux";
 import {Provider} from "react-redux";
 import spotifyReducer from "./reducers/SpotifyReducer";
