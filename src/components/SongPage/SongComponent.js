@@ -3,6 +3,7 @@ import {searchSongsById, getSongAudioById} from "../../services/SpotifyService";
 import styles from "../ArtistPage/ArtistComponent.module.css";
 import ReactAudioPlayer from 'react-audio-player';
 import {Link} from "react-router-dom";
+import CommentComponent from "../CommentsComponent/CommentComponent/Comment";
 
 
 const SongComponent = (props) => {
@@ -46,7 +47,18 @@ const SongComponent = (props) => {
                 }
 
             </div>
+            <div className="row">
+                <div className="col-2">
 
+                </div>
+                <div className="col-8">
+                    <CommentComponent/>
+
+                </div>
+                <div className="col-2">
+
+                </div>
+            </div>
         </div>
     )
 
