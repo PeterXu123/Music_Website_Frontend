@@ -47,17 +47,15 @@ const SongComponent = (props) => {
                 }
 
             </div>
-            <div className="row">
-                <div className="col-2">
+            <div     style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
 
-                </div>
-                <div className="col-8">
-                    <CommentComponent/>
 
-                </div>
-                <div className="col-2">
-
-                </div>
+            }}>
+                <br/>
+                <CommentComponent/>
             </div>
         </div>
     )
