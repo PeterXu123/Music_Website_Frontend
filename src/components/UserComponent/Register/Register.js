@@ -22,9 +22,10 @@ class Register extends React.Component {
             delete u.verifyPassword;
             register(u)
                 .then(u => {
+
                     this.props.register(u)
                     this.props.history.push('/profile')
-                })
+                }).catch(error => alert("user exits"))
         }
     }
 
@@ -76,7 +77,7 @@ class Register extends React.Component {
 const stateToPropertyMapper = (state) => ({});
 
 const propertyToDispatchMapper = (dispatch) => ({
-    register: (user) => dispatch({type: "CONNECT", user: user.name, rest: user.rest, expired: user.expired})
+    register: (user) => dispatch({type: "CONNECT", user: user.username, rest: user.rest, expired: user.expired})
 
 });
 

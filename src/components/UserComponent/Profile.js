@@ -32,6 +32,7 @@ class Profile extends React.Component {
 
     componentDidMount() {
         if (this.props.user !== '') {
+            console.log(this.props);
             console.log(this.props.user)
 
             this.helper();

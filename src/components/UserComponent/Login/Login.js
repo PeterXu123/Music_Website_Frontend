@@ -18,12 +18,14 @@ class Login extends React.Component {
     login = (user) =>
         login(user)
             .then(newUser => {
-                this.props.login1(newUser);
-                console.log(newUser)
-                console.log(newUser)
 
-                this.props.history.push('/profile')
-            })
+                    console.log(newUser)
+                    this.props.login1(newUser);
+                    console.log(newUser)
+                    console.log(newUser)
+                    this.props.history.push('/profile')
+
+            }).catch(error=>alert("please check username and password"))
 
     render() {
         return (

@@ -20,7 +20,11 @@ export const login = (user) =>
             'content-type': 'application/json'
         },
         credentials: "include"
-    }).then(response => response.json())
+    }).then(response => {
+        console.log("dsfdsfdf")
+        return response.json()
+    }).
+    catch(error => console.log(error))
 
 export const logout = () =>
     fetch(`${localUrl}/users/logout`, {
