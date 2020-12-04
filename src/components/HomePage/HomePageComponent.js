@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import styles from "./HomePage.module.css"
 import SearchArtistComponent from "../Results/SearchArtistComponent/SearchArtistComponent";
 import SearchSongComponent from "../Results/SearchSongComponent/SearchSongComponent";
-import {logout} from "../../services/UserServices";
+import {logout, profile} from "../../services/UserServices";
 import Navbar from "../UserComponent/Navbar/Navbar";
 
 class HomePageComponent extends Component {
@@ -14,16 +14,54 @@ class HomePageComponent extends Component {
             op: "artist",
             searchContent: ''
         }
+        this.time = '';
+    }
+    helper = () => {
+        if (this.props.user != ''){
+            this.time = setTimeout(() => {
+                logout()
+                    .then((info) => {
+                        console.log(info)
+                        this.props.logout();
+                        this.props.history.push('/login')
+                    })
+                    .catch(error => console.log(error))
+
+            }, 1000 * 60 * 60)
+        }
+
     }
 
-    onLogout = () => {
-        logout()
-            .then((info) => {
-                console.log(info)
-                this.props.history.push('/')
-            })
-            .catch(error => console.log(error))
+    componentDidMount() {
+        if (this.props.user !== '') {
+            this.helper();
+        } else {
+            profile()
+                .then(profile => {
+                    if (profile.status === 403) {
+                        console.log("nothing happen")
+                        this.props.logout();
+                    } else {
+                        console.log(profile)
+                        this.props.reconnect(profile)
+                        this.helper();
+
+                    }
+
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+
+        }
+
     }
+    componentWillUnmount() {
+        clearTimeout(this.time);
+    }
+
+
+
     
     render() {
         return (
@@ -68,7 +106,10 @@ class HomePageComponent extends Component {
 
 const stateToPropertyMapper = (state) => ({
     searchResult: state.spotifyReducer.searchResult,
-    condition: state.spotifyReducer.condition
+    condition: state.spotifyReducer.condition,
+    user: state.userReducer.user,
+    expired: state.userReducer.expired,
+    rest: state.userReducer.rest,
 });
 
 const propertyToDispatchMapper = (dispatch) => ({
@@ -81,6 +122,8 @@ const propertyToDispatchMapper = (dispatch) => ({
         searchSong(songName)
             .then(data =>
                 dispatch({type: "SEARCH_SONG", songs: data})),
+    reconnect: (user) => dispatch({type: "CONNECT", user: user.username, rest: user.rest, expired: user.expired}),
+    logout: () => dispatch({type: "LOGOUT"})
 });
 
 

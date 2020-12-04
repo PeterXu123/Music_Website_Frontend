@@ -39,6 +39,5 @@ export const profile = () =>
     }).then(response => {
         console.log(response)
         return response.json()
-    })
-        .
+    }).
     catch(error => console.log(error))

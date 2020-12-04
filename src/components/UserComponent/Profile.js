@@ -4,15 +4,21 @@ import Navbar from "./Navbar/Navbar";
 import {connect} from "react-redux";
 
 class Profile extends React.Component {
-    state = {
-
-            username: ''
+    constructor(props) {
+        super(props);
+        this.time = ''
 
     }
 
+    state = {
+
+        username: ''
+    }
+
+
     helper = () => {
         this.setState({username: this.props.user})
-        setTimeout(() => {
+        this.time = setTimeout(() => {
             logout()
                 .then((info) => {
                     console.log(info)
@@ -21,27 +27,25 @@ class Profile extends React.Component {
                 })
                 .catch(error => console.log(error))
 
-        }, this.props.rest)
+        }, 1000 * 60 * 60)
     }
+
     componentDidMount() {
         if (this.props.user !== '') {
             console.log(this.props.user)
+
             this.helper();
-        }
-        else {
+        } else {
             console.log(this.props)
             profile()
                 .then(profile => {
-                    if(profile.status === 403) {
+                    if (profile.status === 403) {
                         this.props.history.push('/login')
-                    }
-                    else {
+                    } else {
                         console.log(profile)
                         this.props.reconnect(profile)
                         this.helper();
-
                     }
-
                 })
                 .catch(error => {
                     console.log(error)
@@ -52,13 +56,20 @@ class Profile extends React.Component {
 
     }
 
+    componentWillUnmount() {
+        clearTimeout(this.time);
+    }
+
     render() {
-        return(
-            <div>
-                <Navbar></Navbar>
-                <h1>Profile</h1>
-                 Username: {this.state.username}
-            </div>
+        return (
+            <React.Fragment>
+                {this.props.user ? <div>
+                    <Navbar></Navbar>
+                    <h1>Profile</h1>
+                    Username: {this.state.username}
+                </div> : null}
+
+            </React.Fragment>
         )
     }
 }
