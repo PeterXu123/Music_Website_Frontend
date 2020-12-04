@@ -5,13 +5,14 @@ import reportWebVitals from './reportWebVitals';
 import {combineReducers, createStore} from "redux";
 import {Provider} from "react-redux";
 import spotifyReducer from "./reducers/SpotifyReducer";
+import userReducer from "./reducers/UserReducer";
 import 'bootstrap/dist/css/bootstrap.css'
 import "bootstrap/dist/js/bootstrap.min"
 import "jquery/dist/jquery.min"
 
 import {BrowserRouter as Router} from "react-router-dom";
 import App from "./App";
-const reducers = combineReducers({spotifyReducer});
+const reducers = combineReducers({spotifyReducer, userReducer});
 
 const store = createStore(reducers)
 

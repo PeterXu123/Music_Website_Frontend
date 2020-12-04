@@ -20,7 +20,7 @@ class HomePageComponent extends Component {
         logout()
             .then((info) => {
                 console.log(info)
-                this.props.history.push()
+                this.props.history.push('/')
             })
             .catch(error => console.log(error))
     }
@@ -80,7 +80,7 @@ const propertyToDispatchMapper = (dispatch) => ({
     searchSong: (songName) =>
         searchSong(songName)
             .then(data =>
-                dispatch({type: "SEARCH_SONG", songs: data}))
+                dispatch({type: "SEARCH_SONG", songs: data})),
 });
 
 

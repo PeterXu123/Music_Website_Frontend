@@ -2,9 +2,10 @@ import React  from "react";
 import {register} from "../../../services/UserServices";
 import styles from "./Register.css"
 import Navbar from "../Navbar/Navbar";
+import {connect} from "react-redux";
 
 
-export default class Register extends React.Component {
+class Register extends React.Component {
     state = {
         username: '',
         password: '',
@@ -21,7 +22,7 @@ export default class Register extends React.Component {
             delete u.verifyPassword;
             register(u)
                 .then(u => {
-                    console.log(u)
+                    this.props.register(u)
                     this.props.history.push('/profile')
                 })
         }
@@ -71,3 +72,13 @@ export default class Register extends React.Component {
         )
     }
 }
+
+const stateToPropertyMapper = (state) => ({});
+
+const propertyToDispatchMapper = (dispatch) => ({
+    register: (user) => dispatch({type: "CONNECT", user: user.name, rest: user.rest, expired: user.expired})
+
+});
+
+
+export default connect(stateToPropertyMapper, propertyToDispatchMapper)(Register)
