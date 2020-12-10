@@ -1,5 +1,5 @@
 .selected {
-    color: blue;
+    color: #111111;
 
 }
 
@@ -10,4 +10,8 @@
 
 .band {
     margin-right: 1%;
+}
+
+.logout {
+    color: #e36767;
 }

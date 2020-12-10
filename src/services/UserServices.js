@@ -1,6 +1,7 @@
 const localUrl = 'http://localhost:8887'
 const serverUrl = 'https://webdev-music-website-server.herokuapp.com'
 export const register = (user) =>
+
     fetch(`${serverUrl}/users/register`, {
         method: 'POST',
         body: JSON.stringify(user),
@@ -41,7 +42,9 @@ export const profile = () =>
         method: 'GET',
         credentials: "include"
     }).then(response => {
-        console.log(response)
-        return response.json()
+        let b = response.json()
+        console.log(b)
+
+        return b
     })
     .catch(error => console.log(error))

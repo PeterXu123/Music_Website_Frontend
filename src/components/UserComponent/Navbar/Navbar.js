@@ -22,9 +22,12 @@ class Navbar extends Component {
     render() {
         return (
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                <a className="navbar-brand" href="/">Home</a>
+                <NavLink to="/" exact activeClassName={`${styles.selected}`}>
+                    Home
+                </NavLink>
+                {/*<a className="navbar-brand" href="/">Home</a>*/}
                 {this.props.user !== '' ?
-                    <button className={` ${styles.t} btn`} onClick={this.onLogout}>
+                    <button className={` ${styles.t} ${styles.logout} btn`} onClick={this.onLogout}>
 
                         Logout
 
@@ -51,7 +54,8 @@ class Navbar extends Component {
                             </NavLink>
 
                             </div>
-                            </React.Fragment>:                  <div className={`nav-item ${styles.t}`}>
+                            </React.Fragment>:
+                            <div className={`nav-item ${styles.t}`}>
                                 <NavLink to="/profile" activeClassName={`${styles.selected}`} >
                                     Profile
                                 </NavLink>
