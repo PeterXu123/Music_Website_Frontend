@@ -2,7 +2,7 @@ const localUrl = 'http://localhost:8887'
 const serverUrl = 'https://webdev-music-website-server.herokuapp.com'
 export const register = (user) =>
 
-    fetch(`${localUrl}/users/register`, {
+    fetch(`${serverUrl}/users/register`, {
         method: 'POST',
         body: JSON.stringify(user),
         headers: {
@@ -14,7 +14,7 @@ export const register = (user) =>
 
 
 export const login = (user) =>
-    fetch(`${localUrl}/users/login`, {
+    fetch(`${serverUrl}/users/login`, {
         method: 'POST',
         body: JSON.stringify(user),
         headers: {
@@ -28,7 +28,7 @@ export const login = (user) =>
     .catch(error => console.log(error))
 
 export const logout = () =>
-    fetch(`${localUrl}/users/logout`, {
+    fetch(`${serverUrl}/users/logout`, {
         method: 'GET',
         headers: {
             'content-type': 'application/json'
@@ -38,7 +38,7 @@ export const logout = () =>
 
 
 export const profile = () =>
-    fetch(`${localUrl}/users/profile`, {
+    fetch(`${serverUrl}/users/profile`, {
         method: 'GET',
         credentials: "include"
     }).then(response => {
@@ -53,7 +53,7 @@ export const profile = () =>
 
 export const addToFav = (record) =>
 
-    fetch(`${localUrl}/users/addToFav`, {
+    fetch(`${serverUrl}/users/addToFav`, {
         method: 'POST',
         body: JSON.stringify(record),
         headers: {
@@ -69,7 +69,7 @@ export const addToFav = (record) =>
 
 
 export const removeFav = (record) =>
-    fetch(`${localUrl}/users/removeFav`, {
+    fetch(`${serverUrl}/users/removeFav`, {
         method: 'DELETE',
         body: JSON.stringify(record),
         headers: {
@@ -84,7 +84,7 @@ export const removeFav = (record) =>
 
 export const addToFriendList = (fobj) =>
 
-    fetch(`${localUrl}/users/addToFriendList`, {
+    fetch(`${serverUrl}/users/addToFriendList`, {
         method: 'POST',
         body: JSON.stringify(fobj),
         headers: {
@@ -99,7 +99,7 @@ export const addToFriendList = (fobj) =>
 
 export const removeFromFriendList = (fobj) =>
 
-    fetch(`${localUrl}/users/removeFromFriendList`, {
+    fetch(`${serverUrl}/users/removeFromFriendList`, {
         method: 'DELETE',
         body: JSON.stringify(fobj),
         headers: {
