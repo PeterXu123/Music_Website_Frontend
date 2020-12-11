@@ -18,7 +18,7 @@ export const searchArtist = (artistName) => {
 
 export const searchArtistById = (id) => {
     let t = {id: id};
-    return fetch(`${serverUrl}/artist/id`, {
+    return fetch(`${localUrl}/artist/id`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(t)
@@ -33,7 +33,7 @@ export const searchArtistById = (id) => {
 export const searchSong = (song) => {
     let t = {content: song};
     console.log(song)
-    return fetch(`${serverUrl}/song`, {
+    return fetch(`${localUrl}/song`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(t)
@@ -48,7 +48,7 @@ export const searchSong = (song) => {
 
 export const searchAlbumsForArtist = (id) => {
     let t = {id: id};
-    return fetch(`${serverUrl}/artist/albums`, {
+    return fetch(`${localUrl}/artist/albums`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(t)
@@ -60,7 +60,7 @@ export const searchAlbumsForArtist = (id) => {
 
 export const searchSongsForAlbum = (id) => {
     let t = {id: id};
-    return fetch(`${serverUrl}/album/songs`, {
+    return fetch(`${localUrl}/album/songs`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(t)
@@ -73,7 +73,7 @@ export const searchSongsForAlbum = (id) => {
 
 export const searchSongsById = (songId) => {
     let t = {id: songId};
-    return fetch(`${serverUrl}/song/id`, {
+    return fetch(`${localUrl}/song/id`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(t)

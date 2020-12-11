@@ -2,7 +2,7 @@ const localUrl = 'http://localhost:8887'
 const serverUrl = 'https://webdev-music-website-server.herokuapp.com'
 export const register = (user) =>
 
-    fetch(`${serverUrl}/users/register`, {
+    fetch(`${localUrl}/users/register`, {
         method: 'POST',
         body: JSON.stringify(user),
         headers: {
@@ -14,7 +14,7 @@ export const register = (user) =>
 
 
 export const login = (user) =>
-    fetch(`${serverUrl}/users/login`, {
+    fetch(`${localUrl}/users/login`, {
         method: 'POST',
         body: JSON.stringify(user),
         headers: {
@@ -28,7 +28,7 @@ export const login = (user) =>
     .catch(error => console.log(error))
 
 export const logout = () =>
-    fetch(`${serverUrl}/users/logout`, {
+    fetch(`${localUrl}/users/logout`, {
         method: 'GET',
         headers: {
             'content-type': 'application/json'
@@ -38,7 +38,7 @@ export const logout = () =>
 
 
 export const profile = () =>
-    fetch(`${serverUrl}/users/profile`, {
+    fetch(`${localUrl}/users/profile`, {
         method: 'GET',
         credentials: "include"
     }).then(response => {
@@ -48,3 +48,66 @@ export const profile = () =>
         return b
     })
     .catch(error => console.log(error))
+
+
+
+export const addToFav = (record) =>
+
+    fetch(`${localUrl}/users/addToFav`, {
+        method: 'POST',
+        body: JSON.stringify(record),
+        headers: {
+            'content-type': 'application/json'
+        },
+        credentials: "include"
+    }).then(response => {
+        return response.json()
+    })
+        .catch(error => console.log(error))
+
+
+
+
+export const removeFav = (record) =>
+    fetch(`${localUrl}/users/removeFav`, {
+        method: 'DELETE',
+        body: JSON.stringify(record),
+        headers: {
+            'content-type': 'application/json'
+        },
+        credentials: "include"
+    }).then(response => {
+        return response.json()
+    })
+        .catch(error => console.log(error))
+
+
+export const addToFriendList = (fobj) =>
+
+    fetch(`${localUrl}/users/addToFriendList`, {
+        method: 'POST',
+        body: JSON.stringify(fobj),
+        headers: {
+            'content-type': 'application/json'
+        },
+        credentials: "include"
+    }).then(response => {
+        return response.json()
+    })
+        .catch(error => console.log(error))
+
+
+export const removeFromFriendList = (fobj) =>
+
+    fetch(`${localUrl}/users/removeFromFriendList`, {
+        method: 'DELETE',
+        body: JSON.stringify(fobj),
+        headers: {
+            'content-type': 'application/json'
+        },
+        credentials: "include"
+    }).then(response => {
+        return response.json()
+    })
+        .catch(error => console.log(error))
+

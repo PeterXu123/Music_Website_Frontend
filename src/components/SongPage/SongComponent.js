@@ -6,6 +6,7 @@ import "./SongPage.css"
 import CommentComponent from "../CommentsComponent/CommentComponent/Comment";
 import Navbar from "../UserComponent/Navbar/Navbar";
 import {connect} from "react-redux";
+import {addToFav, removeFav} from "../../services/UserServices";
 
 
 const SongComponent = (props) => {
@@ -28,6 +29,22 @@ const SongComponent = (props) => {
     }, []);
 
 
+    const addToFavorite = (songId, username) => {
+        let record = {songId: songId,
+            username: username}
+
+        addToFav(record).then(r => console.log(r));
+
+    }
+
+    const removeFavorite = (songId, username) => {
+        let record = {songId: songId,
+            username: username}
+        removeFav(record).then(r => console.log(r));
+    }
+
+
+
     return (
         <div>
             <Navbar></Navbar>
@@ -41,10 +58,12 @@ const SongComponent = (props) => {
                 <h3>{songInfo.name}</h3>
 
 
-                <i className="empty-heart fa fa-2x fa-heart"></i>
-                <i className="red-heart fa fa-2x fa-heart"></i>
-
-
+                <div onClick={() => addToFavorite(props.songId, props.user)}>
+                    <i className="empty-heart fa fa-2x fa-heart"></i>
+                </div>
+                <div onClick={() => removeFavorite(props.songId, props.user)}>
+                    <i className="red-heart fa fa-2x fa-heart"></i>
+                </div>
                 <br/>
 
                 {

@@ -1,6 +1,6 @@
 import React from "react";
-import {profile, logout} from "../../services/UserServices";
-import Navbar from "./Navbar/Navbar";
+import {profile, logout, addToFriendList, removeFromFriendList} from "../../../services/UserServices";
+import Navbar from "../Navbar/Navbar";
 import {connect} from "react-redux";
 
 class Profile extends React.Component {
@@ -13,6 +13,10 @@ class Profile extends React.Component {
     state = {
         username: ''
     }
+
+
+
+
 
 
     helper = () => {
@@ -60,6 +64,18 @@ class Profile extends React.Component {
         clearTimeout(this.time);
     }
 
+    addToFriend(fid) {
+        console.log("addFriend")
+        let fobj = {fid: fid}
+        addToFriendList(fobj).then(r => console.log(r))
+    }
+
+    removeFriend(fid) {
+        console.log("remove friend")
+        let fobj = {fid: fid}
+        removeFromFriendList(fobj).then(r => console.log(r))
+    }
+
     render() {
         return (
             <React.Fragment>
@@ -68,7 +84,13 @@ class Profile extends React.Component {
                     <h1>Profile</h1>
                     Username: {this.state.username}
                 </div> : null}
+                <div>
+                    <li onClick={() => this.addToFriend(this.props.userId)}
+                        className="btn btn-info">add friend</li>
 
+                    <li onClick={() => this.removeFriend(this.props.userId)}
+                        className="btn btn-danger">remove friend</li>
+                </div>
             </React.Fragment>
         )
     }

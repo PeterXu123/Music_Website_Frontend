@@ -6,7 +6,7 @@ import ArtistComponent from "./components/ArtistPage/ArtistComponent";
 import SongComponent from "./components/SongPage/SongComponent";
 import AlbumComponent from "./components/AlbumComponent/AlbumComponent";
 import Register from "./components/UserComponent/Register/Register";
-import Profile from "./components/UserComponent/Profile";
+import Profile from "./components/UserComponent/Profile/Profile";
 import Login from "./components/UserComponent/Login/Login";
 
 function App() {

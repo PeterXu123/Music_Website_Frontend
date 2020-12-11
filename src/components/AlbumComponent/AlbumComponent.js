@@ -3,6 +3,7 @@ import {searchSongsForAlbum} from "../../services/SpotifyService";
 import styles from './AlbumComponent.module.css'
 import {Link} from "react-router-dom";
 import ReactAudioPlayer from "react-audio-player";
+import {addMusicToDB} from "../../services/MusicService";
 const AlbumComponent = (props) => {
     const [songs, setSongs] = useState([]);
 
@@ -18,6 +19,14 @@ const AlbumComponent = (props) => {
             })
 
     }, [])
+
+
+    const addMusic = (songId) => {
+        //console.log(songId)
+        addMusicToDB(songId).then(r => console.log(r));
+
+    }
+
     return (
         <div>
             <div className={`${styles.center}`}>
@@ -26,9 +35,11 @@ const AlbumComponent = (props) => {
             </div>
             <div className='list-group'>
                 {songs.map(song =>  <div className='list-group-item'>
-                    <Link to={`/song/${song.id}`}>
-                    {song.name}
-                    </Link>
+                        <div onClick={() => addMusic(song.id)}>
+                            <Link to={`/song/${song.id}`}>
+                                {song.name}
+                            </Link>
+                        </div>
                     <ReactAudioPlayer className={`${styles.right}`}
                         src= {song.preview_url}
                                       controls controlsList="nodownload"
