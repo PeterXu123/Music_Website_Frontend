@@ -32,7 +32,6 @@ export const searchArtistById = (id) => {
 
 export const searchSong = (song) => {
     let t = {content: song};
-    console.log(song)
     return fetch(`${localUrl}/song`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -40,7 +39,7 @@ export const searchSong = (song) => {
     })
         .then(response => response.json())
         .then(response => {
-            console.log(response)
+            //console.log(response)
             return response
         })
         .catch((error) =>  console.log("Error message is ", error))

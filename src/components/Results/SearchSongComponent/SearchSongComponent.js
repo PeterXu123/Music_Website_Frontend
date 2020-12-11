@@ -6,8 +6,7 @@ import {addMusicToDB} from "../../../services/MusicService";
 const SearchSongComponent = (props) => {
     useEffect(() =>
     {
-        console.log("here")
-        console.log(props.searchResult)
+        //console.log(props.searchResult)
     }, [])
 
 
