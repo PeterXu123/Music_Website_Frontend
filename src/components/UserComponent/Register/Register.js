@@ -8,6 +8,7 @@ import {connect} from "react-redux";
 class Register extends React.Component {
     state = {
         username: '',
+        email: '',
         password: '',
         verifyPassword: ''
     }
@@ -46,6 +47,14 @@ class Register extends React.Component {
                             className="form-control"
                             placeholder="username"/>
                     </div>
+                    <input
+                        value={this.state.email}
+                        onChange={(e) => this.setState({
+                            email: e.target.value
+                        })}
+                        type="email"
+                        className="form-control"
+                        placeholder="email"/>
                     <input
                         type="password"
                         value={this.state.password}
