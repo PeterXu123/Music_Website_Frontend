@@ -9,20 +9,29 @@ class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: '',
+            email: '',
             password: '',
+            valid: false
         }
     }
 
+    checkLoinInform = () => {
+        let emailCheck = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+        if (emailCheck.test(this.state.email) && this.state.password !== '') {
+
+            this.setState({valid: true})
+        }
+        else {
+            this.setState({valid: false})
+        }
+
+    }
 
     login = (user) =>
         login(user)
             .then(newUser => {
 
-                    console.log(newUser)
                     this.props.login1(newUser);
-                    console.log(newUser)
-                    console.log(newUser)
                     this.props.history.push('/profile')
 
             }).catch(error=>alert("please check username and password"))
@@ -35,22 +44,32 @@ class Login extends React.Component {
                 <div className="col-md-6 col-centered">
                     <h2>Login</h2>
                     <input
-                        value={this.state.username}
-                        onChange={(e) => this.setState({
-                            username: e.target.value
-                        })}
+                        value={this.state.email}
+                        onChange={(e) => {
+                            this.checkLoinInform()
+                            this.setState({
+                                email: e.target.value
+                            })
+                        }}
+                        type={'email'}
                         className="form-control"
+                        required={true}
                         placeholder="username"/>
                     <input
                         type="password"
                         value={this.state.password}
-                        onChange={(e) => this.setState({
-                            password: e.target.value
-                        })}
+                        onChange={(e) => {
+                            this.checkLoinInform()
+                            this.setState({
+                                password: e.target.value
+                            })
+                        }}
                         className="form-control"
+                        required={true}
                         placeholder="password"/>
                     <button
-                        onClick={() => this.login(this.state)}
+                        disabled={!this.state.valid}
+                        onClick={() => this.login({email: this.state.email, password: this.state.password})}
                         className="btn btn-primary btn-block">
                         Login
                     </button>
@@ -64,7 +83,8 @@ class Login extends React.Component {
 const stateToPropertyMapper = (state) => ({});
 
 const propertyToDispatchMapper = (dispatch) => ({
-    login1: (user) => dispatch({type: "CONNECT", user: user.username, rest: user.rest, expired: user.expired})
+    login1: (user) => dispatch({type: "CONNECT", user: user,
+        rest: user.rest, expired: user.expired})
 
 });
 

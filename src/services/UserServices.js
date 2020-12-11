@@ -22,7 +22,6 @@ export const login = (user) =>
         },
         credentials: "include"
     }).then(response => {
-        console.log("dsfdsfdf")
         return response.json()
     })
     .catch(error => console.log(error))

@@ -11,7 +11,7 @@ class Profile extends React.Component {
     }
 
     state = {
-        username: ''
+        user: ''
     }
 
 
@@ -20,7 +20,7 @@ class Profile extends React.Component {
 
 
     helper = () => {
-        this.setState({username: this.props.user})
+        this.setState({user: this.props.user})
         this.time = setTimeout(() => {
             logout()
                 .then((info) => {
@@ -36,7 +36,7 @@ class Profile extends React.Component {
     componentDidMount() {
         if (this.props.user !== '') {
             console.log(this.props);
-            console.log(this.props.user)
+            console.log(this.props.user.username)
 
             this.helper();
         } else {
@@ -82,7 +82,8 @@ class Profile extends React.Component {
                 {this.props.user ? <div>
                     <Navbar></Navbar>
                     <h1>Profile</h1>
-                    Username: {this.state.username}
+                    Username: {this.state.user.username}
+
                 </div> : null}
                 <div>
                     <li onClick={() => this.addToFriend(this.props.userId)}
@@ -104,7 +105,7 @@ const stateToPropertyMapper = (state) => ({
 });
 
 const propertyToDispatchMapper = (dispatch) => ({
-    reconnect: (user) => dispatch({type: "CONNECT", user: user.username, rest: user.rest, expired: user.expired}),
+    reconnect: (user) => dispatch({type: "CONNECT", user: user, rest: user.rest, expired: user.expired}),
     logout: () => dispatch({type: "LOGOUT"})
 
 });

@@ -1,7 +1,7 @@
 const initUserState = {
     expired: '',
     rest: '',
-    user : ''
+    user : '',
 };
 
 const UserReducer = (state = initUserState, action) => {

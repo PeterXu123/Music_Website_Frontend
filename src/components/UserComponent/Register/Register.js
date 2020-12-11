@@ -10,7 +10,21 @@ class Register extends React.Component {
         username: '',
         email: '',
         password: '',
-        verifyPassword: ''
+        verifyPassword: '',
+        valid: false
+    }
+    checkLoinInform = () => {
+        let emailCheck = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+        if (emailCheck.test(this.state.email) && this.state.password !== '' && this.state.username !== ''
+            && this.state.verifyPassword !== ''
+        ) {
+
+            this.setState({valid: true})
+        }
+        else {
+            this.setState({valid: false})
+        }
+
     }
 
     register = (user) => {
@@ -41,38 +55,55 @@ class Register extends React.Component {
                     <div>
                         <input
                             value={this.state.username}
-                            onChange={(e) => this.setState({
-                                username: e.target.value
-                            })}
+                            onChange={(e) => {
+                                this.setState({
+                                    username: e.target.value
+                                })
+                                this.checkLoinInform()
+                            }}
                             className="form-control"
+                            required={true}
                             placeholder="username"/>
                     </div>
                     <input
                         value={this.state.email}
-                        onChange={(e) => this.setState({
-                            email: e.target.value
-                        })}
+                        onChange={(e) => {
+                            this.checkLoinInform()
+                            this.setState({
+                                email: e.target.value
+                            })
+                        }}
                         type="email"
+                        required={true}
                         className="form-control"
                         placeholder="email"/>
                     <input
                         type="password"
                         value={this.state.password}
-                        onChange={(e) => this.setState({
-                            password: e.target.value
-                        })}
+                        onChange={(e) => {
+                            this.checkLoinInform()
+                            this.setState({
+                                password: e.target.value
+                            })
+                        }}
                         className="form-control"
+                        required={true}
                         placeholder="password"/>
                     <input
                         type="password"
                         value={this.state.verifyPassword}
-                        onChange={(e) => this.setState({
-                            verifyPassword: e.target.value
-                        })}
+                        onChange={(e) => {
+                            this.checkLoinInform()
+                            this.setState({
+                                verifyPassword: e.target.value
+                            })
+                        }}
                         className="form-control"
                         placeholder="verify password"
+                        required={true}
                     />
                     <button
+                        disabled={!this.state.valid}
                         onClick={() => this.register(this.state)}
                         className="btn btn-primary btn-block">
                         Register
@@ -87,7 +118,7 @@ class Register extends React.Component {
 const stateToPropertyMapper = (state) => ({});
 
 const propertyToDispatchMapper = (dispatch) => ({
-    register: (user) => dispatch({type: "CONNECT", user: user.username, rest: user.rest, expired: user.expired})
+    register: (user) => dispatch({type: "CONNECT", user: user, rest: user.rest, expired: user.expired})
 
 });
 
