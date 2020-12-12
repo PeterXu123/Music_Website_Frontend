@@ -6,6 +6,7 @@ import SearchArtistComponent from "../Results/SearchArtistComponent/SearchArtist
 import SearchSongComponent from "../Results/SearchSongComponent/SearchSongComponent";
 import {logout, profile} from "../../services/UserServices";
 import Navbar from "../UserComponent/Navbar/Navbar";
+import PopularSongComponent from "../Results/PopularSongComponent/PopularSongCompont";
 
 class HomePageComponent extends Component {
     constructor(props) {
@@ -91,6 +92,11 @@ class HomePageComponent extends Component {
                 <input className={`${styles.rbutton}`} type={'radio'} name={"op"} defaultChecked onChange={e => this.setState({op: 'artist'})}/> artist
                 &nbsp;
                 <input className={`${styles.rbutton}`} type={'radio'} name={"op"} onChange={e => this.setState({op: 'song'})}/> song
+
+                        <PopularSongComponent/>
+
+
+
                 {
                     this.props.location.pathname === '/song' && this.props.condition === 1 && <h1>{this.props.searchResult !== "" ?
                         <SearchSongComponent searchResult={this.props.searchResult}/>
