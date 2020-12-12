@@ -84,6 +84,7 @@ class Profile extends React.Component {
             .then((updatedUser) => {
                 console.log(updatedUser)
                 this.props.reconnect(updateUser)
+                alert("save successfully")
 
             })
     }
