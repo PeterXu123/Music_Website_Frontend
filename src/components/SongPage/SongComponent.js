@@ -259,6 +259,7 @@ const SongComponent = (props) => {
                                             username = {comment.userName}
                                             userId = {comment.userId}
                                             sessionId = {props.user.userId}
+                                            commentId = {comment._id}
                                         />)
                                 }
                             </div>
@@ -268,9 +269,6 @@ const SongComponent = (props) => {
                                 No Comments
                             </Header>
                     }
-
-
-
 
 
 

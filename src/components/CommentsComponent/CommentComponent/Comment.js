@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import { Button, Comment, Form, Header } from 'semantic-ui-react'
 import './Comment.css'
 import {Link} from "react-router-dom";
+import {deleteComment} from "../../../services/CommentsService";
 
 class CommentComponent extends Component {
 
@@ -10,10 +11,12 @@ class CommentComponent extends Component {
         comments: ''
     }
 
-    deleteComment = () => {
+    deleteComment = (comId) => {
         console.log("deleteComment")
-    }
+        console.log(comId)
+        deleteComment(comId)
 
+    }
 
 
     render() {
@@ -35,7 +38,7 @@ class CommentComponent extends Component {
                                 {
                                     this.props.sessionId !== null &&
                                     this.props.sessionId === this.props.userId ?
-                                    <button onClick ={() => this.deleteComment()} className="btn btn-danger">
+                                    <button onClick ={() => this.deleteComment(this.props.commentId)} className="btn btn-danger">
                                         Delete
                                     </button>
                                         :
