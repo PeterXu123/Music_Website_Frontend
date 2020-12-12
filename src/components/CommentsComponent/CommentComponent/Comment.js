@@ -12,9 +12,8 @@ class CommentComponent extends Component {
     }
 
     deleteComment = (comId) => {
-        console.log("deleteComment")
-        console.log(comId)
         deleteComment(comId)
+            .then(() => this.props.reloadComments())
 
     }
 

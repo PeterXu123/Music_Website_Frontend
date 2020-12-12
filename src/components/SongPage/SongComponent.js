@@ -10,6 +10,7 @@ import {addToFav, logout, profile, removeFav} from "../../services/UserServices"
 import {addMusicOrGet} from "../../services/MusicService"
 import {Button, Comment, Form, Header} from "semantic-ui-react";
 import {createComment, findCommentsForSong} from "../../services/CommentsService";
+import {render} from "@testing-library/react";
 
 
 const SongComponent = (props) => {
@@ -178,6 +179,16 @@ const SongComponent = (props) => {
         removeFav(record).then(r => console.log(r));
     }
 
+    const renderAllComments = () => {
+        findCommentsForSong(props.songId)
+            .then((comList) => {
+                console.log(comList)
+                setCommentList(comList)
+                console.log(commentList.comments)
+            })
+    }
+
+
 
     const addComment = (com) => {
         let comObj = {
@@ -260,6 +271,7 @@ const SongComponent = (props) => {
                                             userId = {comment.userId}
                                             sessionId = {props.user.userId}
                                             commentId = {comment._id}
+                                            reloadComments = {renderAllComments}
                                         />)
                                 }
                             </div>
