@@ -9,7 +9,7 @@ import {connect} from "react-redux";
 import {addToFav, logout, profile, removeFav} from "../../services/UserServices";
 import {addMusicOrGet} from "../../services/MusicService"
 import {Button, Comment, Form, Header} from "semantic-ui-react";
-import {createComment} from "../../services/CommentsService";
+import {createComment, findCommentsForSong} from "../../services/CommentsService";
 
 
 const SongComponent = (props) => {
@@ -18,6 +18,8 @@ const SongComponent = (props) => {
     const [mp3Url, setmp3Url] = useState('');
     const [user, setUser] = useState();
     const [comments, setComments] = useState('');
+    const [commentList, setCommentList] = useState('');
+
 
     let time;
     const goBack = () => {
@@ -128,6 +130,22 @@ const SongComponent = (props) => {
 
 
     }, [songInfo])
+
+
+
+
+    useEffect(() => {
+        findCommentsForSong(props.songId)
+            .then((comList) => {
+                console.log(comList)
+                setCommentList(comList)
+                console.log(commentList.comments)
+            })
+    }, [])
+
+
+
+
 
 
     const addToFavorite = (songId, username) => {

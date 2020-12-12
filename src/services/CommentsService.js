@@ -15,3 +15,18 @@ export const createComment = (comObj) => {
         })
         .catch((error) =>  console.log("Error message is ", error))
 };
+
+
+export const findCommentsForSong = (songId) => {
+
+    return fetch(`${localUrl}/findAllComments/${songId}`, {
+        method: 'Get',
+        headers: {'Content-Type': 'application/json'},
+    })
+        .then(response => response.json())
+        .then(response => {
+            return response;
+        })
+        .catch((error) =>  console.log("Error message is ", error))
+};
+
