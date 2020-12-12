@@ -99,7 +99,13 @@ const SongComponent = (props) => {
                 console.log(2222222)
                 console.log(props.songId)
                 addMusicOrGet(props.songId, songInfo.name)
-                    .then((music) => console.log("music added or get"))
+                    .then((music) => findCommentsForSong(props.songId)
+                        .then((comList) => {
+                            console.log(comList)
+                            setCommentList(comList)
+                            console.log(commentList.comments)
+                        }))
+
             }
         } else {
             profile()
@@ -115,15 +121,26 @@ const SongComponent = (props) => {
                             console.log(props.songId)
                             console.log(songInfo)
                             addMusicOrGet(props.songId, songInfo.name)
-                                .then((music) => console.log("music added or get"))
+                                .then((music) =>
+                                    findCommentsForSong(props.songId)
+                                    .then((comList) => {
+                                        console.log(comList)
+                                        setCommentList(comList)
+                                        console.log(commentList.comments)
+                                    }))
                         }
-
-
                     }
                 })
                 .catch(error => {
-                    console.log(error)
-                    // props.history.push('/login')
+                    findCommentsForSong(props.songId)
+                        .then((comList) => {
+                            if(comList !== null) {
+                                console.log(comList)
+                                setCommentList(comList)
+                                console.log(commentList.comments)
+                            }
+
+                        })
                 })
 
         }
@@ -134,14 +151,7 @@ const SongComponent = (props) => {
 
 
 
-    useEffect(() => {
-        findCommentsForSong(props.songId)
-            .then((comList) => {
-                console.log(comList)
-                setCommentList(comList)
-                console.log(commentList.comments)
-            })
-    }, [])
+
 
 
     useEffect(() => {
@@ -173,12 +183,15 @@ const SongComponent = (props) => {
         let comObj = {
             musicId: props.songId,
             userId: props.user.userId,
+            username: props.user.username,
             content: com
         }
         createComment(comObj).then((com) => setCommentList((prevState) => {
             console.log("ddddd")
             console.log(com)
             console.log(prevState)
+
+
             let prevCom = [...prevState.comments];
             setComments('')
             return {
@@ -231,27 +244,48 @@ const SongComponent = (props) => {
                 }}>
                 <br/>
                 <Comment.Group>
-                    <Header  dividing>
-                        Comments
-                    </Header>
-                    <div className="ex1">
                     {
-                        commentList !== null && commentList.length !== 0 && commentList.comments.map(comment =>
-                            <CommentComponent
-                                content = {comment.content}
-                            />)
+                        commentList !== null && commentList.length !== 0 && commentList.comments.length !== 0 ?
+                        <div>
+                            <Header dividing>
+                                Comments
+                            </Header>
+
+                            <div className="ex1">
+                                {
+                                    commentList !== null && commentList.length !== 0 && commentList.comments.map(comment =>
+                                        <CommentComponent
+                                            content = {comment.content}
+                                            username = {comment.userName}
+                                            userId = {comment.userId}
+                                            sessionId = {props.user.userId}
+                                        />)
+                                }
+                            </div>
+                        </div>
+                            :
+                            <Header  dividing>
+                                No Comments
+                            </Header>
                     }
-                    </div>
+
+
+
+
 
 
                         {
-                            props.user !== '' ?
                             <Form reply>
                                 <textarea value = {comments}
+                                          disabled={props.user === null || props.user ===  ''}
+
+                                          placeholder= {props.user === null || props.user ===  '' ? "please login to comment" : ""}
                                           onChange={(e) => setComments(e.target.value)}/>
-                                <Button onClick={()=> addComment(comments)} content='Add Comments' labelPosition='left' icon='edit' primary />
+                                <Button
+                                    disabled={props.user === null || props.user ===  ''}
+                                    onClick={()=> addComment(comments)} content='Add Comments' labelPosition='left' icon='edit' primary />
                             </Form>
-                                : null
+
                         }
 
                 </Comment.Group>
