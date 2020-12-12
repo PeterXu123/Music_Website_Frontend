@@ -5,3 +5,11 @@
 .empty-heart {
     color: darkgray;
 }
+
+div.ex1 {
+    background-color: white;
+    width: 100%;
+    margin-right: 1%;
+    height: 400px;
+    overflow: scroll;
+}

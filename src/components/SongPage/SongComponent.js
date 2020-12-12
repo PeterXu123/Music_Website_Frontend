@@ -220,7 +220,15 @@ const SongComponent = (props) => {
                     <Header  dividing>
                         Comments
                     </Header>
-                        <CommentComponent/>
+                    <div className="ex1">
+                    {
+                        commentList.length !== 0 && commentList.comments.map(comment =>
+                            <CommentComponent
+                                content = {comment.content}
+                            />)
+                    }
+
+
                         {
                             props.user !== '' ?
                             <Form reply>
@@ -230,7 +238,7 @@ const SongComponent = (props) => {
                             </Form>
                                 : null
                         }
-
+                    </div>
                 </Comment.Group>
             </div>
         </div>

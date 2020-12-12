@@ -19,7 +19,7 @@ class CommentComponent extends Component {
     render() {
         return (
 
-                <div className="ex1">
+
                     <Comment>
                         <Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' />
                         <Comment.Content>
@@ -29,7 +29,7 @@ class CommentComponent extends Component {
                             <Comment.Metadata>
                                 <div>Today at 5:42PM</div>
                             </Comment.Metadata>
-                            <Comment.Text>how hwohowho howhowh howh howho how hwohowho howhowh howh howho1</Comment.Text>
+                            <Comment.Text>{this.props.content}</Comment.Text>
                             <Comment.Action>
                                 <button onClick ={() => this.deleteComment()} className="btn btn-danger">
                                     Delete
@@ -37,7 +37,7 @@ class CommentComponent extends Component {
                             </Comment.Action>
                         </Comment.Content>
                     </Comment>
-                </div>
+
 
         )
     }
