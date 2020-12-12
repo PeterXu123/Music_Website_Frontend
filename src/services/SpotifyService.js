@@ -82,3 +82,16 @@ export const searchSongsById = (songId) => {
         .catch((error) =>  console.log("Error message is ", error))
 };
 
+export const searchPopularSongs = () => {
+    console.log("hererererer")
+    return fetch(`${localUrl}/popular`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+    })
+        .then(response => response.json())
+        .then(response => {
+            console.log(response)
+            return response
+        })
+        .catch((error) =>  console.log("Error message is ", error))
+};
