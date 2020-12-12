@@ -8,6 +8,7 @@ import AlbumComponent from "./components/AlbumComponent/AlbumComponent";
 import Register from "./components/UserComponent/Register/Register";
 import Profile from "./components/UserComponent/Profile/Profile";
 import Login from "./components/UserComponent/Login/Login";
+import ManageUserComponent from "./components/AdmitComponent/ManageUserComponent";
 
 function App() {
     return (
@@ -27,6 +28,8 @@ function App() {
                     />
                 }
             />
+            <Route exact path={"/manage"} component={ManageUserComponent }/>
+
 
             <Route path={"/song/:songId"}
                    render={(props) =>

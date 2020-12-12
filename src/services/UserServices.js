@@ -139,3 +139,31 @@ export const getUser = (uid) =>
         .catch(error => console.log(error))
 
 
+
+export const getAllUser = () =>
+
+    fetch(`${localUrl}/users/findAllUser`, {
+        method: 'Get',
+        headers: {
+            'content-type': 'application/json'
+        },
+        credentials: "include"
+    }).then(response => {
+        return response.json()
+    })
+        .catch(error => console.log(error))
+
+
+export const removeUser = (uid) =>
+
+    fetch(`${localUrl}/users/removeUser/${uid}`, {
+        method: 'DELETE',
+        headers: {
+            'content-type': 'application/json'
+        },
+        credentials: "include"
+    }).then(response => {
+        return response.json()
+    })
+        .catch(error => console.log(error))
+
