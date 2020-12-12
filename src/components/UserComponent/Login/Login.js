@@ -54,7 +54,7 @@ class Login extends React.Component {
                         type={'email'}
                         className="form-control"
                         required={true}
-                        placeholder="username"/>
+                        placeholder="email"/>
                     <input
                         type="password"
                         value={this.state.password}

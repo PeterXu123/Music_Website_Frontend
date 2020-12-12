@@ -1,13 +1,12 @@
-const localUrl = 'http://localhost:8887/music'
+const localUrl = 'http://localhost:8887/musics'
 
 
-export const addMusicToDB = (musicId) => {
-    let m = {musicId: musicId};
-    console.log(m);
-    return fetch(`${localUrl}/addMusic`, {
+export const addMusicOrGet = (musicId, title) => {
+    console.log("here")
+    return fetch(`${localUrl}/music/${musicId}`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(m)
+        body: JSON.stringify({title: title})
     })
         .then(response => response.json())
         .then(response => {

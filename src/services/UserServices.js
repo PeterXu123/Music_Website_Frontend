@@ -2,7 +2,7 @@ const localUrl = 'http://localhost:8887'
 const serverUrl = 'https://webdev-music-website-server.herokuapp.com'
 export const register = (user) =>
 
-    fetch(`${serverUrl}/users/register`, {
+    fetch(`${localUrl}/users/register`, {
         method: 'POST',
         body: JSON.stringify(user),
         headers: {
@@ -12,9 +12,22 @@ export const register = (user) =>
 
     }).then(response => response.json())
 
+export const updateUser = (userId, user) => {
+    console.log(userId)
+    return fetch(`${localUrl}/users/update/${userId}`, {
+        method: 'PUT',
+        body: JSON.stringify(user),
+        headers: {
+            'content-type': 'application/json'
+        },
+        credentials: "include"
+
+    }).then(response => response.json())
+}
+
 
 export const login = (user) =>
-    fetch(`${serverUrl}/users/login`, {
+    fetch(`${localUrl}/users/login`, {
         method: 'POST',
         body: JSON.stringify(user),
         headers: {
@@ -27,7 +40,7 @@ export const login = (user) =>
     .catch(error => console.log(error))
 
 export const logout = () =>
-    fetch(`${serverUrl}/users/logout`, {
+    fetch(`${localUrl}/users/logout`, {
         method: 'GET',
         headers: {
             'content-type': 'application/json'
@@ -37,7 +50,7 @@ export const logout = () =>
 
 
 export const profile = () =>
-    fetch(`${serverUrl}/users/profile`, {
+    fetch(`${localUrl}/users/profile`, {
         method: 'GET',
         credentials: "include"
     }).then(response => {
