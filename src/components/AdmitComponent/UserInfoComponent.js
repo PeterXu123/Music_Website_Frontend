@@ -26,8 +26,9 @@ export default class UserInfoComponent extends Component {
                         </Link>
 
                     </div>
+                    <div className="form-group col-5"></div>
                     <div onClick={() => this.removeUser(this.props.userId)}
-                        className="form-group col-7">
+                        className="form-group col-2">
 
                         <li className="btn btn-danger">
                             Remove User

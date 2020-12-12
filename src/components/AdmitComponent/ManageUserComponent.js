@@ -1,6 +1,7 @@
-import {Component} from "react";
+import React, {Component} from "react";
 import {getAllUser} from "../../services/UserServices";
 import UserInfoComponent from "./UserInfoComponent";
+import Navbar from "../UserComponent/Navbar/Navbar";
 
 export default class ManageUserComponent extends Component {
     constructor(props) {
@@ -23,6 +24,7 @@ export default class ManageUserComponent extends Component {
     render() {
         return (
             <div>
+                <Navbar></Navbar>
                 <h1>All Users</h1>
 
                 {
