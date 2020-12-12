@@ -14,16 +14,11 @@ class CommentComponent extends Component {
         console.log("deleteComment")
     }
 
-    addComment = (comments) => {
-        console.log(comments)
-    }
+
 
     render() {
         return (
-            <Comment.Group>
-                <Header  dividing>
-                    Comments
-                </Header>
+
                 <div className="ex1">
                     <Comment>
                         <Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' />
@@ -43,14 +38,7 @@ class CommentComponent extends Component {
                         </Comment.Content>
                     </Comment>
                 </div>
-                <Form reply>
-                    <textarea value = {this.state.comments}
-                              onChange={(e) => this.setState({
-                                  comments: e.target.value
-                              })}/>
-                    <Button onClick={()=> this.addComment(this.state.comments)} content='Add Comments' labelPosition='left' icon='edit' primary />
-                </Form>
-            </Comment.Group>
+
         )
     }
 }

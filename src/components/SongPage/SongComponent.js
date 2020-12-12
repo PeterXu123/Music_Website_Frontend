@@ -8,6 +8,8 @@ import Navbar from "../UserComponent/Navbar/Navbar";
 import {connect} from "react-redux";
 import {addToFav, logout, profile, removeFav} from "../../services/UserServices";
 import {addMusicOrGet} from "../../services/MusicService"
+import {Button, Comment, Form, Header} from "semantic-ui-react";
+import {createComment} from "../../services/CommentsService";
 
 
 const SongComponent = (props) => {
@@ -15,6 +17,8 @@ const SongComponent = (props) => {
     const [songInfo, setSongInfo] = useState('');
     const [mp3Url, setmp3Url] = useState('');
     const [user, setUser] = useState();
+    const [comments, setComments] = useState('');
+
     let time;
     const goBack = () => {
         props.history.goBack();
@@ -145,6 +149,17 @@ const SongComponent = (props) => {
     }
 
 
+    const addComment = (com) => {
+        let comObj = {
+            musicId: props.songId,
+            userId: props.user.userId,
+            content: com
+        }
+        createComment(comObj).then(r => console.log(r))
+
+    }
+
+
     return (
         <div>
             <Navbar></Navbar>
@@ -183,7 +198,22 @@ const SongComponent = (props) => {
                     justifyContent: 'center',
                 }}>
                 <br/>
-                <CommentComponent/>
+                <Comment.Group>
+                    <Header  dividing>
+                        Comments
+                    </Header>
+                        <CommentComponent/>
+                        {
+                            props.user !== '' ?
+                            <Form reply>
+                                <textarea value = {comments.value}
+                                          onChange={(e) => setComments(e.target.value)}/>
+                                <Button onClick={()=> addComment(comments)} content='Add Comments' labelPosition='left' icon='edit' primary />
+                            </Form>
+                                : null
+                        }
+
+                </Comment.Group>
             </div>
         </div>
     )

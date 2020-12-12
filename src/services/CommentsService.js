@@ -1,12 +1,13 @@
-const localUrl = 'http://localhost:8887/musics'
+const localUrl = 'http://localhost:8887/comments'
 
 
-export const addMusicOrGet = (musicId, title) => {
-    console.log("here")
-    return fetch(`${localUrl}/music/${musicId}`, {
+
+export const createComment = (comObj) => {
+
+    return fetch(`${localUrl}/createComment`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({title: title})
+        body: JSON.stringify(comObj)
     })
         .then(response => response.json())
         .then(response => {
@@ -14,5 +15,3 @@ export const addMusicOrGet = (musicId, title) => {
         })
         .catch((error) =>  console.log("Error message is ", error))
 };
-
-
