@@ -27,9 +27,15 @@ const SongComponent = (props) => {
         getUser(props.user.userId)
             .then(s => {
                 console.log(s)
-                setFav(s.favouriteMusic)
+                if (s == null) {
+                    setFav([])
+                }
+                else {
+                    setFav(s.favouriteMusic)
+                }
             })
     }
+
 
 
 
@@ -40,8 +46,8 @@ const SongComponent = (props) => {
         props.history.goBack();
     }
     const helper = () => {
-        setUser(props.user)
         getFav();
+        clearTimeout(time)
         time = setTimeout(() => {
             logout()
                 .then((info) => {
@@ -112,12 +118,7 @@ const SongComponent = (props) => {
                 console.log(2222222)
                 console.log(props.songId)
                 addMusicOrGet(props.songId, songInfo.name)
-                    .then((music) => findCommentsForSong(props.songId)
-                        .then((comList) => {
-                            console.log(comList)
-                            setCommentList(comList)
-                            console.log(commentList.comments)
-                        }))
+                    .then((music) => renderAllComments())
 
             }
         } else {
@@ -136,11 +137,7 @@ const SongComponent = (props) => {
                             addMusicOrGet(props.songId, songInfo.name)
                                 .then((music) =>
                                     findCommentsForSong(props.songId)
-                                    .then((comList) => {
-                                        console.log(comList)
-                                        setCommentList(comList)
-                                        console.log(commentList.comments)
-                                    }))
+                                    .then((comList) => renderAllComments()))
                         }
                     }
                 })
@@ -149,7 +146,7 @@ const SongComponent = (props) => {
                         .then((comList) => {
                             if(comList !== null) {
                                 console.log(comList)
-                                setCommentList(comList)
+                                renderAllComments()
                                 console.log(commentList.comments)
                             }
 
@@ -181,7 +178,11 @@ const SongComponent = (props) => {
             songId: songId,
             userId: userId
         }
-        addToFav(record).then(r => getFav());
+        addToFav(record).then(r => {
+            alert("added this song to favorite songs");
+            helper();
+
+        });
 
     }
 
@@ -190,7 +191,10 @@ const SongComponent = (props) => {
             songId: songId,
             userId: userId
         }
-        removeFav(record).then(r => getFav());
+        removeFav(record).then(r => {
+            helper()
+            alert("remove this song from favorite songs")
+        });
     }
 
 
@@ -214,8 +218,14 @@ const SongComponent = (props) => {
             content: com
         }
         createComment(comObj).then((com) => {
-            renderAllComments();
+            console.log(com)
             setComments('');
+
+            setTimeout(function () {
+                renderAllComments();
+            }, 100);
+
+
         })
     }
 

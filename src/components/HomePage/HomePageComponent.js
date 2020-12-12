@@ -18,6 +18,7 @@ class HomePageComponent extends Component {
     }
     helper = () => {
         if (this.props.user != ''){
+            clearTimeout(this.time)
             this.time = setTimeout(() => {
                 logout()
                     .then((info) => {
@@ -38,8 +39,10 @@ class HomePageComponent extends Component {
         } else {
             profile()
                 .then(profile => {
-                    if (profile.status === 403) {
+                    console.log(profile)
+                    if (profile == undefined) {
                         console.log("nothing happen")
+                        clearTimeout(this.time)
                         this.props.logout();
                     } else {
                         console.log(profile)
@@ -50,6 +53,8 @@ class HomePageComponent extends Component {
 
                 })
                 .catch(error => {
+                    clearTimeout(this.time)
+                    console.log("Wtf")
                     console.log(error)
                 })
 

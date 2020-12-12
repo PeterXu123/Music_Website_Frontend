@@ -81,6 +81,7 @@ export const addToFav = (record) =>
 
 
 export const removeFav = (record) =>
+
     fetch(`${localUrl}/users/removeFav`, {
         method: 'PUT',
         body: JSON.stringify(record),
@@ -89,6 +90,7 @@ export const removeFav = (record) =>
         },
         credentials: "include"
     }).then(response => {
+        console.log(record)
         return response.json()
     })
         .catch(error => console.log(error))

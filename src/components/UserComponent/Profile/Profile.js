@@ -1,7 +1,19 @@
 import React from "react";
-import {profile, logout, addToFriendList, removeFromFriendList, updateUser} from "../../../services/UserServices";
+import styles from "./Profile.module.css"
+import {
+    profile,
+    logout,
+    addToFriendList,
+    removeFromFriendList,
+    updateUser,
+    getUser,
+    removeFav,
+
+} from "../../../services/UserServices";
 import Navbar from "../Navbar/Navbar";
 import {connect} from "react-redux";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {Link} from "react-router-dom";
 
 class Profile extends React.Component {
     constructor(props) {
@@ -14,6 +26,7 @@ class Profile extends React.Component {
         username: '',
         email: '',
         phoneNumber: '',
+        favList: []
 
 
     }
@@ -21,6 +34,13 @@ class Profile extends React.Component {
 
     helper = () => {
         this.setState({username: this.props.user.username, email: this.props.user.email, phoneNumber: this.props.user.phoneNumber})
+        console.log(this.props.user)
+        getUser(this.props.user.userId)
+            .then((user) => {
+                console.log(user)
+                this.setState({favList: user.favouriteMusic})
+            })
+        clearTimeout(this.time)
         this.time = setTimeout(() => {
             logout()
                 .then((info) => {
@@ -32,6 +52,8 @@ class Profile extends React.Component {
 
         }, 1000 * 60 * 60)
     }
+
+
 
     componentDidMount() {
         if (this.props.user !== '') {
@@ -66,6 +88,17 @@ class Profile extends React.Component {
         clearTimeout(this.time);
     }
 
+    removeFavorite= (songId) => {
+        console.log(songId)
+        console.log(this.props.user.userId)
+        let record = {
+            songId: songId,
+            userId: this.props.user.userId
+        }
+        removeFav(record)
+            .then((succeed) => this.helper())
+    }
+
     addToFriend(fid) {
         console.log("addFriend")
         let fobj = {fid: fid}
@@ -96,67 +129,107 @@ class Profile extends React.Component {
             <React.Fragment>
                 <Navbar></Navbar>
                 <div className="container">
-                    {this.props.user ?
+
+                        {this.props.user ?
+                            <div>
+                                <div className="form-group">
+                                    <label htmlFor="email">Email address</label>
+                                    <input
+                                        value={this.state.email}
+                                        type={'email'}
+                                        className="form-control"
+                                        disabled={true}
+                                        placeholder="email"/>
+                                </div>
+
+                                <div className="form-group">
+                                    <label htmlFor="username">Username</label>
+                                    <input
+                                        value={this.state.username}
+                                        onChange={(e) => {
+                                            this.setState(prevState => {
+
+                                                return {...prevState, username: e.target.value }
+                                            })
+                                        }}
+                                        type="text"
+                                        className="form-control"
+                                        id={"username"}
+                                        placeholder="username"/>
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="phoneNumber">Phone Number</label>
+                                    <input
+                                        value={this.state.phoneNumber}
+                                        onChange={(e) => {
+
+                                            this.setState(prevState => {
+
+                                                return  {...prevState.user, phoneNumber: e.target.value}
+                                            })
+                                        }}
+                                        type={"number"}
+                                        className="form-control"
+                                        id={"phoneNumber"}
+                                        placeholder="phone number"/>
+                                </div>
+
+
+                            </div> : null}
+
+
                         <div>
-                            <div className="form-group">
-                                <label htmlFor="email">Email address</label>
-                                <input
-                                    value={this.state.email}
-                                    type={'email'}
-                                    className="form-control"
-                                    disabled={true}
-                                    placeholder="email"/>
+                            <button onClick={() => this.updateProfile(this.props.userId, this.state.user)}
+                                className="btn btn-success">update friend
+                            </button>
+                        </div>
+
+
+                    <div className={"row"}>
+
+                        <div className={"col-6"}>
+                            <div className="list-group">
+                                <label>Favourite songs</label>
+                                {this.state.favList.map(music =>
+                                    <div>
+                                        <li className="list-group-item">
+
+                                            <Link to={`/song/${music.musicId}`} >{music.title}</Link>
+
+                                        <i onClick={() => this.removeFavorite(music.musicId)} className={`fa fa-trash  fa fa-2x   ${styles.floatRight} ${styles.pointer}`}></i>
+                                    </li>
+
+
+                                    </div>)}
                             </div>
 
-                            <div className="form-group">
-                                <label htmlFor="username">Username</label>
-                                <input
-                                    value={this.state.username}
-                                    onChange={(e) => {
-                                        this.setState(prevState => {
+                        </div>
 
-                                            return {...prevState, username: e.target.value }
-                                        })
-                                    }}
-                                    type="text"
-                                    className="form-control"
-                                    id={"username"}
-                                    placeholder="username"/>
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="phoneNumber">Phone Number</label>
-                                <input
-                                    value={this.state.phoneNumber}
-                                    onChange={(e) => {
+                        <div className={"col-6"}>
+                            <div className="list-group">
+                                <label>Friend Lists</label>
+                                {[].map(friend =>
+                                    <div><li className="list-group-item">
+                                        <i>fake</i>
 
-                                        this.setState(prevState => {
-
-                                            return  {...prevState.user, phoneNumber: e.target.value}
-                                        })
-                                    }}
-                                    type={"number"}
-                                    className="form-control"
-                                    id={"phoneNumber"}
-                                    placeholder="phone number"/>
+                                        <li  className={`fa fa-trash  fa fa-2x   ${styles.floatRight} ${styles.pointer}`}></li>
+                                    </li> </div>)}
                             </div>
 
+                        </div>
 
-                        </div> : null}
-
-
-                    <div>
-                        <li onClick={() => this.addToFriend(this.props.userId)}
-                            className="btn btn-info">add friend
-                        </li>
-
-                        <li onClick={() => this.removeFriend(this.props.userId)}
-                            className="btn btn-danger">remove friend
-                        </li>
-                        <li onClick={() => this.updateProfile(this.props.userId, this.state.user)}
-                            className="btn btn-success">update friend
-                        </li>
                     </div>
+
+
+
+
                 </div>
+
+
+
+
+
+
             </React.Fragment>
         )
     }
