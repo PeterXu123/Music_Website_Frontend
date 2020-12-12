@@ -6,7 +6,7 @@ import "./SongPage.css"
 import CommentComponent from "../CommentsComponent/CommentComponent/Comment";
 import Navbar from "../UserComponent/Navbar/Navbar";
 import {connect} from "react-redux";
-import {addToFav, logout, profile, removeFav} from "../../services/UserServices";
+import {addToFav, getUser, logout, profile, removeFav} from "../../services/UserServices";
 import {addMusicOrGet} from "../../services/MusicService"
 import {Button, Comment, Form, Header} from "semantic-ui-react";
 import {createComment, findCommentsForSong} from "../../services/CommentsService";
@@ -20,6 +20,19 @@ const SongComponent = (props) => {
     const [user, setUser] = useState();
     const [comments, setComments] = useState('');
     const [commentList, setCommentList] = useState('');
+    const [fav, setFav] = useState([]);
+
+
+    const getFav = () => {
+        getUser(props.user.userId)
+            .then(s => {
+                console.log(s)
+                setFav(s.favouriteMusic)
+            })
+    }
+
+
+
 
 
     let time;
@@ -28,6 +41,7 @@ const SongComponent = (props) => {
     }
     const helper = () => {
         setUser(props.user)
+        getFav();
         time = setTimeout(() => {
             logout()
                 .then((info) => {
@@ -75,8 +89,6 @@ const SongComponent = (props) => {
                             addMusicOrGet(props.songId, songInfo.name)
                                 .then((music) => console.log("music added or get"))
                         }
-
-
                     }
                 })
                 .catch(error => {
@@ -158,26 +170,30 @@ const SongComponent = (props) => {
     useEffect(() => {
         console.log(commentList)
     }, [commentList])
+    useEffect(() => {
+        console.log(commentList)
+    }, [fav])
 
 
 
-    const addToFavorite = (songId, username) => {
+    const addToFavorite = (songId, userId) => {
         let record = {
             songId: songId,
-            username: username
+            userId: userId
         }
-
-        addToFav(record).then(r => console.log(r));
+        addToFav(record).then(r => getFav());
 
     }
 
-    const removeFavorite = (songId, username) => {
+    const removeFavorite = (songId, userId) => {
         let record = {
             songId: songId,
-            username: username
+            userId: userId
         }
-        removeFav(record).then(r => console.log(r));
+        removeFav(record).then(r => getFav());
     }
+
+
 
     const renderAllComments = () => {
         findCommentsForSong(props.songId)
@@ -197,24 +213,11 @@ const SongComponent = (props) => {
             username: props.user.username,
             content: com
         }
-        createComment(comObj).then((com) => setCommentList((prevState) => {
-            console.log("ddddd")
-            console.log(com)
-            console.log(prevState)
-
-
-            let prevCom = [...prevState.comments];
-            setComments('')
-            return {
-                ...prevState, comments: [...prevCom, com]
-            }
+        createComment(comObj).then((com) => {
+            renderAllComments();
+            setComments('');
         })
-        , ()=>{
-            console.log(commentList.comments)
-            })
-
     }
-
 
     return (
         <div>
@@ -228,13 +231,20 @@ const SongComponent = (props) => {
                     <img src={songInfo.album.images[1].url}/>}
                 <h3>{songInfo.name}</h3>
 
+                {props.user != '' ?
+                    <div>
+                    {fav.length != 0 && fav.filter(music => music.musicId == props.songId).length != 0 ?
+                        <div onClick={() => removeFavorite(props.songId, props.user.userId)}>
+                            <i className="red-heart fa fa-2x fa-heart"></i>
+                        </div> :
+                        <div onClick={() => addToFavorite(props.songId, props.user.userId)}>
+                            <i className="empty-heart fa fa-2x fa-heart"></i>
+                        </div>
 
-                <div onClick={() => addToFavorite(props.songId, props.user)}>
-                    <i className="empty-heart fa fa-2x fa-heart"></i>
-                </div>
-                <div onClick={() => removeFavorite(props.songId, props.user)}>
-                    <i className="red-heart fa fa-2x fa-heart"></i>
-                </div>
+                    }  </div>: null}
+
+
+
                 <br/>
 
                 {

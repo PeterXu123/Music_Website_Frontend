@@ -33,7 +33,6 @@ class CommentComponent extends Component {
                             <Comment.Text>{this.props.content}</Comment.Text>
                             <Comment.Action>
 
-
                                 {
                                     this.props.sessionId !== null &&
                                     this.props.sessionId === this.props.userId ?

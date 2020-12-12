@@ -65,7 +65,7 @@ export const profile = () =>
 
 export const addToFav = (record) =>
 
-    fetch(`${serverUrl}/users/addToFav`, {
+    fetch(`${localUrl}/users/addToFav`, {
         method: 'POST',
         body: JSON.stringify(record),
         headers: {
@@ -81,8 +81,8 @@ export const addToFav = (record) =>
 
 
 export const removeFav = (record) =>
-    fetch(`${serverUrl}/users/removeFav`, {
-        method: 'DELETE',
+    fetch(`${localUrl}/users/removeFav`, {
+        method: 'PUT',
         body: JSON.stringify(record),
         headers: {
             'content-type': 'application/json'
@@ -96,7 +96,7 @@ export const removeFav = (record) =>
 
 export const addToFriendList = (fobj) =>
 
-    fetch(`${serverUrl}/users/addToFriendList`, {
+    fetch(`${localUrl}/users/addToFriendList`, {
         method: 'POST',
         body: JSON.stringify(fobj),
         headers: {
@@ -111,7 +111,7 @@ export const addToFriendList = (fobj) =>
 
 export const removeFromFriendList = (fobj) =>
 
-    fetch(`${serverUrl}/users/removeFromFriendList`, {
+    fetch(`${localUrl}/users/removeFromFriendList`, {
         method: 'DELETE',
         body: JSON.stringify(fobj),
         headers: {
@@ -122,4 +122,20 @@ export const removeFromFriendList = (fobj) =>
         return response.json()
     })
         .catch(error => console.log(error))
+
+
+
+export const getUser = (uid) =>
+
+    fetch(`${localUrl}/users/find/${uid}`, {
+        method: 'Get',
+        headers: {
+            'content-type': 'application/json'
+        },
+        credentials: "include"
+    }).then(response => {
+        return response.json()
+    })
+        .catch(error => console.log(error))
+
 
