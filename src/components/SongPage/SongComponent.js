@@ -144,7 +144,9 @@ const SongComponent = (props) => {
     }, [])
 
 
-
+    useEffect(() => {
+        console.log(commentList)
+    }, [commentList])
 
 
 
@@ -173,7 +175,19 @@ const SongComponent = (props) => {
             userId: props.user.userId,
             content: com
         }
-        createComment(comObj).then(r => console.log(r))
+        createComment(comObj).then((com) => setCommentList((prevState) => {
+            console.log("ddddd")
+            console.log(com)
+            console.log(prevState)
+            let prevCom = [...prevState.comments];
+            setComments('')
+            return {
+                ...prevState, comments: [...prevCom, com]
+            }
+        })
+        , ()=>{
+            console.log(commentList.comments)
+            })
 
     }
 
@@ -222,23 +236,24 @@ const SongComponent = (props) => {
                     </Header>
                     <div className="ex1">
                     {
-                        commentList.length !== 0 && commentList.comments.map(comment =>
+                        commentList !== null && commentList.length !== 0 && commentList.comments.map(comment =>
                             <CommentComponent
                                 content = {comment.content}
                             />)
                     }
+                    </div>
 
 
                         {
                             props.user !== '' ?
                             <Form reply>
-                                <textarea value = {comments.value}
+                                <textarea value = {comments}
                                           onChange={(e) => setComments(e.target.value)}/>
                                 <Button onClick={()=> addComment(comments)} content='Add Comments' labelPosition='left' icon='edit' primary />
                             </Form>
                                 : null
                         }
-                    </div>
+
                 </Comment.Group>
             </div>
         </div>
