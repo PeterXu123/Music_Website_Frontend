@@ -1,7 +1,8 @@
 import React, {Component} from "react";
-import {getAllUser} from "../../services/UserServices";
+import {getAllUser, getRole, getUser, profile} from "../../services/UserServices";
 import UserInfoComponent from "./UserInfoComponent";
 import Navbar from "../UserComponent/Navbar/Navbar";
+
 
 export default class ManageUserComponent extends Component {
     constructor(props) {
@@ -9,11 +10,35 @@ export default class ManageUserComponent extends Component {
     }
 
     state = {
-        users : []
+        users : [],
+        userId: '',
+        role: ''
     }
 
     componentDidMount() {
+        profile()
+            .then((user) => {
+                if(user == undefined || user.status === 403) {
+                    this.props.history.push('/login')
+                }
+                else {
+                    this.setState(
+                        {userId: user.userId})
+                    console.log(user.userId)
+                    getRole(user.userId).then((role) => {
+                        this.setState({role: role})
+                        console.log(role)
+                        if(role != 'admin') {
+                            this.props.history.push('/profile')
+                        }
+                    })
+                }
+
+            })
+
+
         this.reload();
+
     }
 
     reload = () => {
@@ -23,24 +48,29 @@ export default class ManageUserComponent extends Component {
 
     render() {
         return (
-            <div>
-                <Navbar></Navbar>
-                <h1>All Users</h1>
 
-                {
-                    this.state.users.length !== 0 ?
-                        this.state.users.map((user) =>
-                            <UserInfoComponent
-                                username = {user.username}
-                                userId = {user._id}
-                                reload = {this.reload}
-                            />
-                        ):
-                        null
-                }
-            </div>
+
+
+                    <div>
+                        <h1>All Users</h1>
+
+                        {
+                            this.state.users.length !== 0 ?
+                                this.state.users.map((user) =>
+                                    <UserInfoComponent
+                                        logid = {this.state.userId}
+                                        username = {user.username}
+                                        userId = {user._id}
+                                        reload = {this.reload}
+                                    />
+                                ):
+                                null
+                        }
+                    </div>
+
         )
     }
-
-
 }
+
+
+

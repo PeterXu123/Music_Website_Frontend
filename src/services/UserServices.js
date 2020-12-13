@@ -186,3 +186,18 @@ export const removeUser = (uid) =>
     })
         .catch(error => console.log(error))
 
+
+export const getRole = (uid) => {
+
+    return fetch(`${localUrl}/users/getRole/${uid}`, {
+        method: 'GET',
+        headers: {
+            'content-type': 'application/json'
+        },
+        credentials: "include"
+    }).then(response => {
+        return response.json()
+    })
+        .catch(error => console.log(error))
+
+}
