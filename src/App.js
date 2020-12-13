@@ -10,6 +10,7 @@ import Profile from "./components/UserComponent/Profile/Profile";
 import Login from "./components/UserComponent/Login/Login";
 import ManageUserComponent from "./components/AdmitComponent/ManageUserComponent";
 import Spinner from 'react-bootstrap/Spinner'
+import Friends from "./components/UserComponent/Profile/Friends/Friends";
 function App() {
     return (
         <div className="App">
@@ -18,6 +19,7 @@ function App() {
             <Route exact path={"/song"} component={HomePageComponent}/>
             <Route exact path={"/register"} component = {Register}/>
             <Route exact path={"/login"} component = {Login}/>
+            <Route exact path={"/friends"} component = {Friends}/>
             <Switch>
                 <Route
                     path="/profile/:uid"

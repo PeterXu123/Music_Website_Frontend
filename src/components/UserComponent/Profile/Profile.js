@@ -26,7 +26,8 @@ class Profile extends React.Component {
         username: '',
         email: '',
         phoneNumber: '',
-        favList: []
+        favList: [],
+        friendList: [],
 
 
     }
@@ -56,8 +57,9 @@ class Profile extends React.Component {
         getUser(this.props.user.userId)
             .then((user) => {
                 console.log(user)
-                this.setState({favList: user.favouriteMusic})
+                this.setState({favList: user.favouriteMusic, friendList: user.friends})
             })
+        console.log(this.state.friendList)
         this.setState({
             username: this.props.user.username,
             email: this.props.user.email,
@@ -83,7 +85,7 @@ class Profile extends React.Component {
         console.log("component did update")
         console.log(prevProps)
         console.log(this.props)
-        if (this.props.uId != prevProps.uId  ) {
+        if (this.props.uId != prevProps.uId) {
             if (this.props.uId != undefined || this.props.uId != null) {
                 getUser(this.props.uId)
                     .then((user) => {
@@ -91,13 +93,20 @@ class Profile extends React.Component {
                         this.setState({
                             username: user.username,
                             email: user.email,
-                            favList: user.favouriteMusic
+                            favList: user.favouriteMusic,
+
                         })
+                        console.log("line 99")
+                        getUser(this.props.user.userId)
+                            .then((user) => {
+                                console.log(user)
+                                this.setState({friendList: user.friends})
+                            })
+
 
 
                     })
-            }
-            else {
+            } else {
                 profile()
                     .then(profile => {
                         console.log(profile)
@@ -116,8 +125,7 @@ class Profile extends React.Component {
 
             }
 
-        }
-        else {
+        } else {
             if ((this.props.uId == undefined || this.props.uId == null) && this.props.user == '') {
                 console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++")
                 console.log(this.props.user)
@@ -136,8 +144,7 @@ class Profile extends React.Component {
                             // this.setState({user: this.props.user})
                         }
                     })
-            }
-            else {
+            } else {
                 console.log("-----------------------------")
                 // getUser(this.props.uId)
                 //     .then((user) => {
@@ -170,6 +177,13 @@ class Profile extends React.Component {
                         } else {
                             console.log(profile)
                             this.props.reconnect(profile)
+                            getUser(this.props.user.userId)
+                                .then((user) => {
+                                    console.log(user)
+                                    this.setState({friendList: user.friends})
+                                })
+
+
 
                         }
                     })
@@ -180,13 +194,12 @@ class Profile extends React.Component {
                     this.setState({
                         username: user.username,
                         email: user.email,
-                        favList: user.favouriteMusic
+                        favList: user.favouriteMusic,
                     })
 
 
                 })
-        }
-        else if (this.props.user == '') {
+        } else if (this.props.user == '') {
             console.log(this.props.user)
             profile()
                 .then(profile => {
@@ -204,8 +217,7 @@ class Profile extends React.Component {
                     }
                 })
 
-        }
-        else {
+        } else {
             this.helper();
         }
 
@@ -215,6 +227,7 @@ class Profile extends React.Component {
     componentWillUnmount() {
         clearTimeout(this.time);
     }
+
 
     removeFavorite = (songId) => {
         console.log(songId)
@@ -228,15 +241,21 @@ class Profile extends React.Component {
     }
 
     addToFriend(fid) {
-        console.log("addFriend")
-        let fobj = {fid: fid}
-        addToFriendList(fobj).then(r => console.log(r))
+        let obj = {selfId: this.props.user.userId, otherId: fid};
+        console.log(obj)
+        addToFriendList(obj).then(r => {
+            console.log(r)
+            this.setState({friendList: r.friends})
+        })
     }
 
     removeFriend(fid) {
         console.log("remove friend")
-        let fobj = {fid: fid}
-        removeFromFriendList(fobj).then(r => console.log(r))
+        let obj = {selfId: this.props.user.userId, otherId: fid};
+        removeFromFriendList(obj).then(r => {
+            alert("Unfollow successfully")
+            this.setState({friendList: r.friends})
+        })
     }
 
     updateProfile = () => {
@@ -310,16 +329,49 @@ class Profile extends React.Component {
 
                     <div>
                         {this.props.uId != undefined ? null :
-                            <button onClick={() => this.updateProfile(this.props.user.userId, this.state.user)}
-                                    className="btn btn-success">update profile
-                            </button>}
+                            <React.Fragment>
+                                <button onClick={() => this.updateProfile(this.props.user.userId, this.state.user)}
+                                        className="btn btn-success">update profile
+                                </button>
+                                &nbsp;
+                                <button className={"btn btn-info"}
+                                        onClick={() => this.props.history.push('/friends')}> my friends
+                                </button>
+                            </React.Fragment>
+
+                        }
+
+                    </div>
+
+                    <div>
+                        {this.props.uId != undefined && this.props.user != '' ?
+                            <React.Fragment>
+                            {
+                                this.state.friendList.filter(i => i == this.props.uId).length == 0 ?
+
+                                    <React.Fragment>
+                                        <button onClick={() => this.addToFriend(this.props.uId)}
+                                                className="btn btn-success">Follow him
+                                        </button>
+
+                                    </React.Fragment> :
+                                    <React.Fragment>
+                                        <button onClick={() => this.removeFriend(this.props.uId)}
+                                                className="btn btn-danger">UnFollow him
+                                        </button>
+
+                                    </React.Fragment>
+                            }</React.Fragment> : null
+
+
+                        }
 
                     </div>
 
 
                     <div className={"row"}>
 
-                        <div className={"col-6"}>
+                        <div className={"col-12"}>
                             <div className="list-group">
                                 <label>Favourite songs</label>
                                 {this.state.favList.map(music =>
@@ -341,20 +393,28 @@ class Profile extends React.Component {
 
                         </div>
 
-                        <div className={"col-6"}>
-                            <div className="list-group">
-                                <label>Friend Lists</label>
-                                {[].map(friend =>
-                                    <div>
-                                        <li className="list-group-item">
-                                            <i>fake</i>
+                        {/*<div className={"col-6"}>*/}
+                        {/*    <div className="list-group">*/}
 
-                                            <li className={`fa fa-trash  fa fa-2x   ${styles.floatRight} ${styles.pointer}`}></li>
-                                        </li>
-                                    </div>)}
-                            </div>
 
-                        </div>
+                        {/*        <label>Friend Lists</label>*/}
+                        {/*        {this.state.friendList.map(friend =>*/}
+                        {/*            <div>*/}
+                        {/*                <li className="list-group-item">*/}
+                        {/*                    <i>{friend}</i>*/}
+
+                        {/*                    <li className={`fa fa-trash  fa fa-2x   ${styles.floatRight} ${styles.pointer}`}></li>*/}
+                        {/*                </li>*/}
+                        {/*            </div>)}*/}
+                        {/*    </div>*/}
+                        {/*    {this.props.user != "" &&( this.props.uId != undefined || this.props.uId != null)*/}
+                        {/*        ? <button className="btn btn-success">Follow this guy</button>*/}
+                        {/*        : null}*/}
+                        {/*    {this.props.user != "" &&( this.props.uId != undefined || this.props.uId != null)*/}
+                        {/*        ? <button className="btn btn-danger"> Unfollow this guy</button>*/}
+                        {/*        : null}*/}
+
+                        {/*</div>*/}
 
                     </div>
 

@@ -98,7 +98,7 @@ export const removeFav = (record) =>
 
 export const addToFriendList = (fobj) =>
 
-    fetch(`${localUrl}/users/addToFriendList`, {
+    fetch(`${localUrl}/users/addFriend`, {
         method: 'POST',
         body: JSON.stringify(fobj),
         headers: {
@@ -113,8 +113,8 @@ export const addToFriendList = (fobj) =>
 
 export const removeFromFriendList = (fobj) =>
 
-    fetch(`${localUrl}/users/removeFromFriendList`, {
-        method: 'DELETE',
+    fetch(`${localUrl}/users/removeFriend`, {
+        method: 'PUT',
         body: JSON.stringify(fobj),
         headers: {
             'content-type': 'application/json'
