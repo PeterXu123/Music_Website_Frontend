@@ -18,27 +18,37 @@ export default class UserInfoComponent extends Component {
     render() {
         console.log(this.props)
         return(
-            <div className="form-group">
-                <div className="row">
-                    <div className="form-group col-5">
-                        <Link to={`/profile/${this.props.userId}`}>
-                        {this.props.username}
-                        </Link>
+        <di>
+            {
+                this.props.logid !== this.props.userId ?
+                    <div className="form-group">
+                        <div className="row">
+                            <div className="form-group col-5">
+                                <Link to={`/profile/${this.props.userId}`}>
+                                    {this.props.username}
+                                </Link>
+
+                            </div>
+
+                            <div className="form-group col-5"></div>
+
+                            <div onClick={() => this.removeUser(this.props.userId)}
+                                 className="form-group col-2">
+
+                                <li className="btn btn-danger">
+                                    Remove User
+                                </li>
+                            </div>
+                        </div>
+
+
 
                     </div>
-                    <div className="form-group col-5"></div>
-                    <div onClick={() => this.removeUser(this.props.userId)}
-                        className="form-group col-2">
-
-                        <li className="btn btn-danger">
-                            Remove User
-                        </li>
-                    </div>
-                </div>
+                    :null
+            }
+        </di>
 
 
-
-            </div>
         )
     }
 }
