@@ -11,6 +11,7 @@ import Login from "./components/UserComponent/Login/Login";
 import ManageUserComponent from "./components/AdmitComponent/ManageUserComponent";
 import Spinner from 'react-bootstrap/Spinner'
 import Friends from "./components/UserComponent/Profile/Friends/Friends";
+import PrivacyPageCompnents from "./components/PrivacyPageComponent/PrivacyPageComponent";
 function App() {
     return (
         <div className="App">
@@ -20,6 +21,7 @@ function App() {
             <Route exact path={"/register"} component = {Register}/>
             <Route exact path={"/login"} component = {Login}/>
             <Route exact path={"/friends"} component = {Friends}/>
+            <Route exact path={"/privacy"} component = {PrivacyPageCompnents}/>
             <Switch>
                 <Route
                     path="/profile/:uid"
