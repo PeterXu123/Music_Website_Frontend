@@ -31,9 +31,37 @@ class Profile extends React.Component {
 
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log("line 35")
+        console.log(this.props)
+        console.log(prevProps)
+
+        if (this.props.uId != prevProps.uId) {
+            getUser(this.props.uId)
+                .then((user) => {
+                    console.log(user)
+                    this.setState({
+                        username: user.username,
+                        email: user.email,
+                        favList: user.favouriteMusic
+                    })
+
+
+                })
+        }
+
+
+    }
+
+
+
 
     helper = () => {
-        this.setState({username: this.props.user.username, email: this.props.user.email, phoneNumber: this.props.user.phoneNumber})
+        this.setState({
+            username: this.props.user.username,
+            email: this.props.user.email,
+            phoneNumber: this.props.user.phoneNumber
+        })
         console.log(this.props.user)
         getUser(this.props.user.userId)
             .then((user) => {
@@ -54,31 +82,85 @@ class Profile extends React.Component {
     }
 
 
-
     componentDidMount() {
+        console.log("component did mount")
         if (this.props.user !== '') {
+            // login
             console.log(this.props);
             console.log(this.props.user.username)
+            console.log(this.props.uId)
+            console.log(this.props.uid != undefined)
+            if (this.props.uid != null) {
+                // other page while login
+                console.log(this.props.uId)
+                getUser(this.props.uid)
+                    .then((user) => {
+                        console.log(user)
+                        this.setState({
+                            username: user.username,
+                            email: user.email,
+                            favList: user.favouriteMusic
+                        })
 
-            this.helper();
+
+                    })
+
+            } else {
+                this.helper();
+            }
+
         } else {
             console.log(this.props)
-            profile()
-                .then(profile => {
-                    if (profile.status === 403) {
-                        this.props.history.push('/login')
+            if (this.props.uId != undefined) {
 
-                    } else {
-                        console.log(profile)
-                        this.props.reconnect(profile)
-                        this.helper();
-                        // this.setState({user: this.props.user})
-                    }
-                })
-                .catch(error => {
-                    console.log(error)
-                    this.props.history.push('/login')
-                })
+
+                getUser(this.props.uId)
+                    .then((user) => {
+                        console.log(user)
+                        console.log(user.username)
+                        this.setState({
+                            username: user.username,
+                            email: user.email,
+                            favList: user.favouriteMusic
+                        })
+
+
+                    })
+
+                profile()
+                    .then(profile => {
+                        if (profile.status === 403) {
+                            // this.props.history.push('/login')
+                            console.log("not logged in")
+
+                        } else {
+                            console.log(profile)
+                            this.props.reconnect(profile)
+                            // this.helper();
+                            // this.setState({user: this.props.user})
+                        }
+                    })
+
+            } else {
+                // see my page
+                profile()
+                    .then(profile => {
+                        if (profile.status === 403) {
+                            this.props.history.push('/login')
+
+                        } else {
+                            console.log(profile)
+                            this.props.reconnect(profile)
+                            this.helper();
+                            // this.setState({user: this.props.user})
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error)
+                        this.props.history.push('/login')
+                    })
+            }
+
 
         }
 
@@ -88,7 +170,7 @@ class Profile extends React.Component {
         clearTimeout(this.time);
     }
 
-    removeFavorite= (songId) => {
+    removeFavorite = (songId) => {
         console.log(songId)
         console.log(this.props.user.userId)
         let record = {
@@ -123,40 +205,41 @@ class Profile extends React.Component {
     }
 
 
-
     render() {
         return (
             <React.Fragment>
                 <Navbar></Navbar>
                 <div className="container">
 
-                        {this.props.user ?
-                            <div>
-                                <div className="form-group">
-                                    <label htmlFor="email">Email address</label>
-                                    <input
-                                        value={this.state.email}
-                                        type={'email'}
-                                        className="form-control"
-                                        disabled={true}
-                                        placeholder="email"/>
-                                </div>
+                    {this.props.user || this.props.uId ?
+                        <div>
+                            <div className="form-group">
+                                <label htmlFor="email">Email address</label>
+                                <input
+                                    value={this.state.email}
+                                    type={'email'}
+                                    className="form-control"
+                                    disabled={true}
+                                    placeholder="email"/>
+                            </div>
 
-                                <div className="form-group">
-                                    <label htmlFor="username">Username</label>
-                                    <input
-                                        value={this.state.username}
-                                        onChange={(e) => {
-                                            this.setState(prevState => {
+                            <div className="form-group">
+                                <label htmlFor="username">Username</label>
+                                <input
+                                    value={this.state.username}
+                                    onChange={(e) => {
+                                        this.setState(prevState => {
 
-                                                return {...prevState, username: e.target.value }
-                                            })
-                                        }}
-                                        type="text"
-                                        className="form-control"
-                                        id={"username"}
-                                        placeholder="username"/>
-                                </div>
+                                            return {...prevState, username: e.target.value}
+                                        })
+                                    }}
+                                    disabled={this.props.uId != undefined}
+                                    type="text"
+                                    className="form-control"
+                                    id={"username"}
+                                    placeholder="username"/>
+                            </div>
+                            {this.props.uId != undefined ? null :
                                 <div className="form-group">
                                     <label htmlFor="phoneNumber">Phone Number</label>
                                     <input
@@ -165,7 +248,7 @@ class Profile extends React.Component {
 
                                             this.setState(prevState => {
 
-                                                return  {...prevState.user, phoneNumber: e.target.value}
+                                                return {...prevState.user, phoneNumber: e.target.value}
                                             })
                                         }}
                                         type={"number"}
@@ -173,16 +256,19 @@ class Profile extends React.Component {
                                         id={"phoneNumber"}
                                         placeholder="phone number"/>
                                 </div>
+                            }
 
 
-                            </div> : null}
+                        </div> : null}
 
 
-                        <div>
-                            <button onClick={() => this.updateProfile(this.props.userId, this.state.user)}
-                                className="btn btn-success">update friend
-                            </button>
-                        </div>
+                    <div>
+                        {this.props.uId != undefined ? null :
+                            <button onClick={() => this.updateProfile(this.props.user.userId, this.state.user)}
+                                    className="btn btn-success">update profile
+                            </button>}
+
+                    </div>
 
 
                     <div className={"row"}>
@@ -194,10 +280,13 @@ class Profile extends React.Component {
                                     <div>
                                         <li className="list-group-item">
 
-                                            <Link to={`/song/${music.musicId}`} >{music.title}</Link>
+                                            <Link to={`/song/${music.musicId}`}>{music.title}</Link>
 
-                                        <i onClick={() => this.removeFavorite(music.musicId)} className={`fa fa-trash  fa fa-2x   ${styles.floatRight} ${styles.pointer}`}></i>
-                                    </li>
+                                            {this.props.uId == undefined ?   <i onClick={() => this.removeFavorite(music.musicId)}
+                                                                                className={`fa fa-trash  fa fa-2x   ${styles.floatRight} ${styles.pointer}`}></i>
+                                            : null}
+
+                                        </li>
 
 
                                     </div>)}
@@ -209,11 +298,13 @@ class Profile extends React.Component {
                             <div className="list-group">
                                 <label>Friend Lists</label>
                                 {[].map(friend =>
-                                    <div><li className="list-group-item">
-                                        <i>fake</i>
+                                    <div>
+                                        <li className="list-group-item">
+                                            <i>fake</i>
 
-                                        <li  className={`fa fa-trash  fa fa-2x   ${styles.floatRight} ${styles.pointer}`}></li>
-                                    </li> </div>)}
+                                            <li className={`fa fa-trash  fa fa-2x   ${styles.floatRight} ${styles.pointer}`}></li>
+                                        </li>
+                                    </div>)}
                             </div>
 
                         </div>
@@ -221,13 +312,7 @@ class Profile extends React.Component {
                     </div>
 
 
-
-
                 </div>
-
-
-
-
 
 
             </React.Fragment>

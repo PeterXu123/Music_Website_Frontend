@@ -24,8 +24,9 @@ class CommentComponent extends Component {
                     <Comment>
                         <Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' />
                         <Comment.Content>
+
                             <Comment.Author as={Link}
-                                            to={`/profile/${this.props.userId}`}>
+                                            to={this.props.userId !== this.props.sessionId ? `/profile/${this.props.userId}` : `/profile` }>
                                 {this.props.username}</Comment.Author>
                             <Comment.Metadata>
                                 <div>Today at 5:42PM</div>

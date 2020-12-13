@@ -24,7 +24,7 @@ function App() {
                 render={(props) =>
                     <Profile
                         {...props}
-                        userId = {props.match.params.uid}
+                        uId = {props.match.params.uid}
                     />
                 }
             />
