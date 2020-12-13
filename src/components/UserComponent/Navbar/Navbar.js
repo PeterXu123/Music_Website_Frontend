@@ -15,7 +15,8 @@ class Navbar extends Component {
             .then((info) => {
                 console.log(info)
                 this.props.logout()
-                this.props.history.push("/")
+                // this.props.history.push("/")
+                window.location.assign("/");
             })
 
     }
