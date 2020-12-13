@@ -1,10 +1,10 @@
 const localUrl = 'http://localhost:8887/comments'
-
+const serverUrl = 'https://webdev-music-website-server.herokuapp.com/comments'
 
 
 export const createComment = (comObj) => {
 
-    return fetch(`${localUrl}/createComment`, {
+    return fetch(`${serverUrl}/createComment`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(comObj)
@@ -19,7 +19,7 @@ export const createComment = (comObj) => {
 
 export const findCommentsForSong = (songId) => {
 
-    return fetch(`${localUrl}/findAllComments/${songId}`, {
+    return fetch(`${serverUrl}/findAllComments/${songId}`, {
         method: 'Get',
         headers: {'Content-Type': 'application/json'},
     })
@@ -34,7 +34,7 @@ export const findCommentsForSong = (songId) => {
 
 export const deleteComment = (comId) => {
 
-    return fetch(`${localUrl}/deleteComment/${comId}`, {
+    return fetch(`${serverUrl}/deleteComment/${comId}`, {
         method: 'DELETE',
         headers: {'Content-Type': 'application/json'},
     })

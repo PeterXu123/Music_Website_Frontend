@@ -1,9 +1,9 @@
 const localUrl = 'http://localhost:8887/musics'
-
+const serverUrl = 'https://webdev-music-website-server.herokuapp.com/musics'
 
 export const addMusicOrGet = (musicId, title) => {
     console.log("here")
-    return fetch(`${localUrl}/music/${musicId}`, {
+    return fetch(`${serverUrl}/music/${musicId}`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({title: title})

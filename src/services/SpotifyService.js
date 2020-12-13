@@ -84,7 +84,7 @@ export const searchSongsById = (songId) => {
 
 export const searchPopularSongs = () => {
     console.log("hererererer")
-    return fetch(`${localUrl}/popular`, {
+    return fetch(`${serverUrl}/popular`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
     })

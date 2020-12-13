@@ -369,6 +369,12 @@ class Profile extends React.Component {
                                 <button className={"btn btn-info"}
                                         onClick={() => this.props.history.push('/friends')}> my friends
                                 </button>
+                                &nbsp;
+                                {this.props.user != undefined && this.props.user.role != undefined && this.props.user.role == "admin" ?
+                                    <button className={"btn btn-danger"} onClick={() =>  this.props.history.push('/manage')}>admin</button>
+                                    : null
+                                }
+
                             </React.Fragment>
 
                         }

@@ -2,7 +2,7 @@ const localUrl = 'http://localhost:8887'
 const serverUrl = 'https://webdev-music-website-server.herokuapp.com'
 export const register = (user) =>
 
-    fetch(`${localUrl}/users/register`, {
+    fetch(`${serverUrl}/users/register`, {
         method: 'POST',
         body: JSON.stringify(user),
         headers: {
@@ -14,7 +14,7 @@ export const register = (user) =>
 
 export const updateUser = (userId, user) => {
     console.log(userId)
-    return fetch(`${localUrl}/users/update/${userId}`, {
+    return fetch(`${serverUrl}/users/update/${userId}`, {
         method: 'PUT',
         body: JSON.stringify(user),
         headers: {
@@ -27,7 +27,7 @@ export const updateUser = (userId, user) => {
 
 
 export const login = (user) =>
-    fetch(`${localUrl}/users/login`, {
+    fetch(`${serverUrl}/users/login`, {
         method: 'POST',
         body: JSON.stringify(user),
         headers: {
@@ -40,7 +40,7 @@ export const login = (user) =>
     .catch(error => console.log(error))
 
 export const logout = () =>
-    fetch(`${localUrl}/users/logout`, {
+    fetch(`${serverUrl}/users/logout`, {
         method: 'GET',
         headers: {
             'content-type': 'application/json'
@@ -50,7 +50,7 @@ export const logout = () =>
 
 
 export const profile = () =>
-    fetch(`${localUrl}/users/profile`, {
+    fetch(`${serverUrl}/users/profile`, {
         method: 'GET',
         credentials: "include"
     }).then(response => {
@@ -65,7 +65,7 @@ export const profile = () =>
 
 export const addToFav = (record) =>
 
-    fetch(`${localUrl}/users/addToFav`, {
+    fetch(`${serverUrl}/users/addToFav`, {
         method: 'POST',
         body: JSON.stringify(record),
         headers: {
@@ -82,7 +82,7 @@ export const addToFav = (record) =>
 
 export const removeFav = (record) =>
 
-    fetch(`${localUrl}/users/removeFav`, {
+    fetch(`${serverUrl}/users/removeFav`, {
         method: 'PUT',
         body: JSON.stringify(record),
         headers: {
@@ -98,7 +98,7 @@ export const removeFav = (record) =>
 
 export const addToFriendList = (fobj) =>
 
-    fetch(`${localUrl}/users/addFriend`, {
+    fetch(`${serverUrl}/users/addFriend`, {
         method: 'POST',
         body: JSON.stringify(fobj),
         headers: {
@@ -113,7 +113,7 @@ export const addToFriendList = (fobj) =>
 
 export const removeFromFriendList = (fobj) =>
 
-    fetch(`${localUrl}/users/removeFriend`, {
+    fetch(`${serverUrl}/users/removeFriend`, {
         method: 'PUT',
         body: JSON.stringify(fobj),
         headers: {
@@ -130,7 +130,7 @@ export const removeFromFriendList = (fobj) =>
 export const getUser = (uid) => {
 
     console.log(uid)
-    return fetch(`${localUrl}/users/find/${uid}`, {
+    return fetch(`${serverUrl}/users/find/${uid}`, {
         method: 'Get',
         headers: {
             'content-type': 'application/json'
@@ -145,7 +145,7 @@ export const getUser = (uid) => {
 export const getFriendsById = (uid) => {
 
     console.log(uid)
-    return fetch(`${localUrl}/users/myFriends/${uid}`, {
+    return fetch(`${serverUrl}/users/myFriends/${uid}`, {
         method: 'Get',
         headers: {
             'content-type': 'application/json'
@@ -161,7 +161,7 @@ export const getFriendsById = (uid) => {
 
 export const getAllUser = () =>
 
-    fetch(`${localUrl}/users/findAllUser`, {
+    fetch(`${serverUrl}/users/findAllUser`, {
         method: 'Get',
         headers: {
             'content-type': 'application/json'
@@ -175,7 +175,7 @@ export const getAllUser = () =>
 
 export const removeUser = (uid) =>
 
-    fetch(`${localUrl}/users/removeUser/${uid}`, {
+    fetch(`${serverUrl}/users/removeUser/${uid}`, {
         method: 'DELETE',
         headers: {
             'content-type': 'application/json'
@@ -189,7 +189,7 @@ export const removeUser = (uid) =>
 
 export const getRole = (uid) => {
 
-    return fetch(`${localUrl}/users/getRole/${uid}`, {
+    return fetch(`${serverUrl}/users/getRole/${uid}`, {
         method: 'GET',
         headers: {
             'content-type': 'application/json'

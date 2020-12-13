@@ -53,19 +53,22 @@ export default class ManageUserComponent extends Component {
 
                     <div>
                         <h1>All Users</h1>
+                        <div className="list-group">
+                            {
+                                this.state.users.length !== 0 ?
+                                    this.state.users.map((user) =>
+                                        <UserInfoComponent
+                                            logid = {this.state.userId}
+                                            username = {user.username}
+                                            userId = {user._id}
+                                            reload = {this.reload}
+                                        />
+                                    ):
+                                    null
+                            }
+                        </div>
 
-                        {
-                            this.state.users.length !== 0 ?
-                                this.state.users.map((user) =>
-                                    <UserInfoComponent
-                                        logid = {this.state.userId}
-                                        username = {user.username}
-                                        userId = {user._id}
-                                        reload = {this.reload}
-                                    />
-                                ):
-                                null
-                        }
+
                     </div>
 
         )

@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import {removeUser} from "../../services/UserServices";
-
+import styles from "./UserInfo.module.css"
 export default class UserInfoComponent extends Component {
     constructor(props) {
         super(props);
@@ -18,22 +18,22 @@ export default class UserInfoComponent extends Component {
     render() {
         console.log(this.props)
         return(
-        <di>
+        <React.Fragment >
             {
                 this.props.logid !== this.props.userId ?
-                    <div className="form-group">
-                        <div className="row">
-                            <div className="form-group col-5">
+                    <div className="list-group-item">
+
+
                                 <Link to={`/profile/${this.props.userId}`}>
                                     {this.props.username}
                                 </Link>
 
-                            </div>
 
-                            <div className="form-group col-5"></div>
+
+
 
                             <div onClick={() => this.removeUser(this.props.userId)}
-                                 className="form-group col-2">
+                                 className={`${styles.floatRight}`}>
 
                                 <li className="btn btn-danger">
                                     Remove User
@@ -43,10 +43,10 @@ export default class UserInfoComponent extends Component {
 
 
 
-                    </div>
+
                     :null
             }
-        </di>
+        </React.Fragment>
 
 
         )
