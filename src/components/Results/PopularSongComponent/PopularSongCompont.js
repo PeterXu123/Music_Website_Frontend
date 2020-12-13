@@ -9,7 +9,7 @@ const PopularSongComponent = (props) => {
 
     useEffect(() => {
         console.log("fffff")
-        searchPopularSongs().then(res => console.log(res))
+        searchPopularSongs().then(res => setSongs(res.tracks))
 
     }, [])
 

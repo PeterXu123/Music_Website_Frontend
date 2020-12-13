@@ -88,19 +88,35 @@ class HomePageComponent extends Component {
                 &nbsp;
                 <input className={`${styles.rbutton}`} type={'radio'} name={"op"} onChange={e => this.setState({op: 'song'})}/> song
 
-                        <PopularSongComponent/>
+                {
+                    this.props.location.pathname !== '/song' && this.props.location.pathname !== '/artist' ?
+                        <div>
+                            <br/>
+                            <h2>Popular</h2>
+                            <PopularSongComponent/>
+                        </div>
+                        :null
 
-
-
+                }
                 {
                     this.props.location.pathname === '/song' && this.props.condition === 1 && <h1>{this.props.searchResult !== "" ?
-                        <SearchSongComponent searchResult={this.props.searchResult}/>
+                        <div>
+                            <br/>
+                            <h2>Result</h2>
+                            <SearchSongComponent searchResult={this.props.searchResult}/>
+                        </div>
+
                         : null}
                     </h1>
                 }
                 {
                     this.props.location.pathname === '/artist' && this.props.condition === 0 && <h1>{this.props.searchResult !== "" ?
-                        <SearchArtistComponent searchResult = {this.props.searchResult}/>
+                        <div>
+                            <br/>
+                            <h2>Result</h2>
+                            <SearchArtistComponent searchResult = {this.props.searchResult}/>
+                        </div>
+
                         :
                         null}
                     </h1>
