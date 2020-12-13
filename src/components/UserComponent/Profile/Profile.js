@@ -111,7 +111,7 @@ class Profile extends React.Component {
                     .then(profile => {
                         console.log(profile)
                         if (profile == undefined || profile.status === 403) {
-                            // this.props.history.push('/login')
+                            this.props.history.push('/login')
                             console.log("not logged in")
 
                         } else {
@@ -134,7 +134,8 @@ class Profile extends React.Component {
                         console.log(profile)
                         if (profile == undefined || profile.status === 403) {
                             // this.props.history.push('/login')
-                            console.log("not logged in")
+                            console.log("not logged in but visite my profile")
+                            this.props.history.push("/login")
 
                         } else {
                             console.log(profile)
@@ -146,6 +147,27 @@ class Profile extends React.Component {
                     })
             } else {
                 console.log("-----------------------------")
+                console.log(this.state.friendList)
+                // profile()
+                //     .then(profile => {
+                //         console.log(profile)
+                //         if (profile == undefined || profile.status === 403) {
+                //             // this.props.history.push('/login')
+                //             console.log("not logged in")
+                //
+                //         } else {
+                //             console.log(profile)
+                //             this.props.reconnect(profile)
+                //             getUser(this.props.user.userId)
+                //                 .then((user) => {
+                //                     console.log(user)
+                //                     this.setState({friendList: user.friends})
+                //                 })
+                //
+                //
+                //
+                //         }
+                //     })
                 // getUser(this.props.uId)
                 //     .then((user) => {
                 //         console.log(user)
@@ -167,6 +189,7 @@ class Profile extends React.Component {
 
         if (this.props.uId != undefined || this.props.uId != null) {
             console.log(this.props.uId)
+            console.log(this.state.friendList)
             if (this.props.user == '') {
                 profile()
                     .then(profile => {
@@ -189,6 +212,15 @@ class Profile extends React.Component {
                         }
                     })
             }
+            getUser(this.props.user.userId)
+                .then((user) => {
+                    console.log(user)
+                    if (user != undefined) {
+                    this.setState({friendList: user.friends})
+                    }
+                })
+
+
             getUser(this.props.uId)
                 .then((user) => {
                     console.log(user)
@@ -197,8 +229,6 @@ class Profile extends React.Component {
                         email: user.email,
                         favList: user.favouriteMusic,
                     })
-
-
                 })
         } else if (this.props.user == '') {
             console.log(this.props.user)

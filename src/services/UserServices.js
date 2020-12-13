@@ -142,6 +142,21 @@ export const getUser = (uid) => {
         .catch(error => console.log(error))
 }
 
+export const getFriendsById = (uid) => {
+
+    console.log(uid)
+    return fetch(`${localUrl}/users/myFriends/${uid}`, {
+        method: 'Get',
+        headers: {
+            'content-type': 'application/json'
+        },
+        credentials: "include"
+    }).then(response => {
+        return response.json()
+    })
+        .catch(error => console.log(error))
+}
+
 
 
 export const getAllUser = () =>

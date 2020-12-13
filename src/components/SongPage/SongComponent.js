@@ -83,7 +83,8 @@ const SongComponent = (props) => {
             console.log(props)
             profile()
                 .then(profile => {
-                    if (profile.status === 403) {
+                    if ( profile == undefined || profile.status == 403) {
+                        console.log("this is guest")
                     } else {
                         console.log(profile)
                         props.reconnect(profile)
@@ -124,7 +125,8 @@ const SongComponent = (props) => {
         } else {
             profile()
                 .then(profile => {
-                    if (profile.status === 403) {
+                    if (profile == undefined || profile.status == 403) {
+                        console.log("this is guest")
                     } else {
                         console.log(profile)
                         props.reconnect(profile)
@@ -262,7 +264,7 @@ const SongComponent = (props) => {
                     mp3Url === null ? null :
                         <ReactAudioPlayer
                             src={mp3Url}
-                            controls controlsList="nodownload"
+                            controls controlsList={ props.user == "" ? `nodownload` : 'download'}
                         />
                 }
 

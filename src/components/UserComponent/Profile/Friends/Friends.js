@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {withRouter} from "react-router";
 import {connect} from "react-redux";
-import {getUser, profile, removeFromFriendList} from "../../../../services/UserServices";
+import {getFriendsById, getUser, profile, removeFromFriendList} from "../../../../services/UserServices";
 import Navbar from "../../Navbar/Navbar";
 import styles from  "./Friends.module.css"
+import {Link} from "react-router-dom";
 const Friends = (props) => {
     const [friends, setFriends] = useState([]);
+    const [url, setURL] = useState([]);
     const deleteFriend = (oid) => {
         console.log(oid)
         let obj =  {selfId: props.user.userId , otherId: oid }
@@ -27,6 +29,7 @@ const Friends = (props) => {
             })
     }
     useEffect(() => {
+        console.log("38")
         if (props.user == "") {
             profile()
                 .then(profile => {
@@ -39,10 +42,16 @@ const Friends = (props) => {
                         console.log(profile)
                         props.reconnect(profile)
                         console.log(props.user)
-                        getUser(props.user.userId)
+                        getFriendsById(props.user.userId)
                             .then((user) => {
-                                console.log(user)
-                                setFriends(user.friends)
+
+                                console.log(user.friends)
+                                let fs = user.friends.map(friend => {
+                                    return friend
+
+                                })
+                                console.log(fs)
+                                setFriends([...fs])
                             })
 
 
@@ -52,10 +61,16 @@ const Friends = (props) => {
         } else {
             console.log(props.user)
 
-            getUser(props.user.userId)
+            getFriendsById(props.user.userId)
                 .then((user) => {
-                    console.log(user)
-                    setFriends(user.friends)
+
+                    console.log(user.friends)
+                    let fs = user.friends.map(friend => {
+                        return friend
+
+                    })
+                    console.log(fs)
+                    setFriends([...fs])
                 })
         }
 
@@ -64,18 +79,30 @@ const Friends = (props) => {
     useEffect(() => {
         console.log("trigger")
         console.log(props.user)
-        getUser(props.user.userId)
+        getFriendsById(props.user.userId)
             .then((user) => {
-                console.log(user)
-                setFriends(user.friends)
+
+                console.log(user.friends)
+                let fs = user.friends.map(friend => {
+                    return friend
+
+                })
+                console.log(fs)
+                setFriends([...fs])
             })
     }, [props.user])
 
     useEffect(() => {
-        getUser(props.user.userId)
+        getFriendsById(props.user.userId)
             .then((user) => {
-                console.log(user)
-                setFriends(user.friends)
+
+                console.log(user.friends)
+                let fs = user.friends.map(friend => {
+                    return friend
+
+                })
+                console.log(fs)
+                setFriends([...fs])
             })
     }, [props.user.friends])
     return (
@@ -85,8 +112,12 @@ const Friends = (props) => {
             <h3>Friends</h3>
             <div className="list-group">
                 {friends.length > 0 ? friends.map(friend =>
-                    <li className="list-group-item">{friend}
-                    <i className={`fa fa-close ${styles.floatRight}`} onClick={() => deleteFriend(friend) }></i></li>) : null}
+                    <li className="list-group-item">
+                        <Link to={`/profile/${friend._id}`}>{friend.username}</Link>
+
+                    <i className={`fa fa-close ${styles.floatRight}`} onClick={() => deleteFriend(friend) }></i>
+
+                    </li>) : null}
 
             </div>
             </div>
