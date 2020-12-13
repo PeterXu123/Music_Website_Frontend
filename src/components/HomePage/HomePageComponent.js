@@ -19,6 +19,7 @@ class HomePageComponent extends Component {
     }
     helper = () => {
         if (this.props.user != ''){
+
             clearTimeout(this.time)
             this.time = setTimeout(() => {
                 logout()
@@ -31,6 +32,7 @@ class HomePageComponent extends Component {
 
             }, 1000 * 60 * 60)
         }
+
 
 
     }
@@ -151,7 +153,7 @@ const propertyToDispatchMapper = (dispatch) => ({
         searchSong(songName)
             .then(data =>
                 dispatch({type: "SEARCH_SONG", songs: data})),
-    reconnect: (user) => dispatch({type: "CONNECT", user: user.username, rest: user.rest, expired: user.expired}),
+    reconnect: (user) => dispatch({type: "CONNECT", user: user, rest: user.rest, expired: user.expired}),
     logout: () => dispatch({type: "LOGOUT"})
 });
 

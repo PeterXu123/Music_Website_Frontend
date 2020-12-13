@@ -53,17 +53,17 @@ class Profile extends React.Component {
 
 
     helper = () => {
-
-        this.setState({
-            username: this.props.user.username,
-            email: this.props.user.email,
-            phoneNumber: this.props.user.phoneNumber
-        })
         getUser(this.props.user.userId)
             .then((user) => {
                 console.log(user)
                 this.setState({favList: user.favouriteMusic})
             })
+        this.setState({
+            username: this.props.user.username,
+            email: this.props.user.email,
+            phoneNumber: this.props.user.phoneNumber
+        })
+
 
         clearTimeout(this.time)
 

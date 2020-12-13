@@ -9,7 +9,7 @@ import Register from "./components/UserComponent/Register/Register";
 import Profile from "./components/UserComponent/Profile/Profile";
 import Login from "./components/UserComponent/Login/Login";
 import ManageUserComponent from "./components/AdmitComponent/ManageUserComponent";
-
+import Spinner from 'react-bootstrap/Spinner'
 function App() {
     return (
         <div className="App">
