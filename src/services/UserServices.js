@@ -127,9 +127,10 @@ export const removeFromFriendList = (fobj) =>
 
 
 
-export const getUser = (uid) =>
+export const getUser = (uid) => {
 
-    fetch(`${localUrl}/users/find/${uid}`, {
+    console.log(uid)
+    return fetch(`${localUrl}/users/find/${uid}`, {
         method: 'Get',
         headers: {
             'content-type': 'application/json'
@@ -139,6 +140,7 @@ export const getUser = (uid) =>
         return response.json()
     })
         .catch(error => console.log(error))
+}
 
 
 

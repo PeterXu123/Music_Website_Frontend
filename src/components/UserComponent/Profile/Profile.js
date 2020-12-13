@@ -30,45 +30,43 @@ class Profile extends React.Component {
 
 
     }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log("line 35")
-        console.log(this.props)
-        console.log(prevProps)
-
-        if (this.props.uId != prevProps.uId) {
-            getUser(this.props.uId)
-                .then((user) => {
-                    console.log(user)
-                    this.setState({
-                        username: user.username,
-                        email: user.email,
-                        favList: user.favouriteMusic
-                    })
-
-
-                })
-        }
-
-
-    }
-
-
+    //
+    // componentDidUpdate(prevProps, prevState, snapshot) {
+    //
+    //
+    //     if (this.props.uId != prevProps.uId) {
+    //         getUser(this.props.uId)
+    //             .then((user) => {
+    //                 console.log(user)
+    //                 this.setState({
+    //                     username: user.username,
+    //                     email: user.email,
+    //                     favList: user.favouriteMusic
+    //                 })
+    //
+    //
+    //             })
+    //     }
+    //
+    //
+    // }
 
 
     helper = () => {
+
         this.setState({
             username: this.props.user.username,
             email: this.props.user.email,
             phoneNumber: this.props.user.phoneNumber
         })
-        console.log(this.props.user)
         getUser(this.props.user.userId)
             .then((user) => {
                 console.log(user)
                 this.setState({favList: user.favouriteMusic})
             })
+
         clearTimeout(this.time)
+
         this.time = setTimeout(() => {
             logout()
                 .then((info) => {
@@ -81,43 +79,15 @@ class Profile extends React.Component {
         }, 1000 * 60 * 60)
     }
 
-
-    componentDidMount() {
-        console.log("component did mount")
-        if (this.props.user !== '') {
-            // login
-            console.log(this.props);
-            console.log(this.props.user.username)
-            console.log(this.props.uId)
-            console.log(this.props.uid != undefined)
-            if (this.props.uid != null) {
-                // other page while login
-                console.log(this.props.uId)
-                getUser(this.props.uid)
-                    .then((user) => {
-                        console.log(user)
-                        this.setState({
-                            username: user.username,
-                            email: user.email,
-                            favList: user.favouriteMusic
-                        })
-
-
-                    })
-
-            } else {
-                this.helper();
-            }
-
-        } else {
-            console.log(this.props)
-            if (this.props.uId != undefined) {
-
-
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log("component did update")
+        console.log(prevProps)
+        console.log(this.props)
+        if (this.props.uId != prevProps.uId) {
+            if (this.props.uId != undefined || this.props.uId != null) {
                 getUser(this.props.uId)
                     .then((user) => {
                         console.log(user)
-                        console.log(user.username)
                         this.setState({
                             username: user.username,
                             email: user.email,
@@ -126,43 +96,84 @@ class Profile extends React.Component {
 
 
                     })
-
+            }
+            else {
                 profile()
                     .then(profile => {
-                        if (profile.status === 403) {
+                        console.log(profile)
+                        if (profile == undefined || profile.status === 403) {
                             // this.props.history.push('/login')
                             console.log("not logged in")
 
                         } else {
                             console.log(profile)
                             this.props.reconnect(profile)
-                            // this.helper();
-                            // this.setState({user: this.props.user})
-                        }
-                    })
-
-            } else {
-                // see my page
-                profile()
-                    .then(profile => {
-                        if (profile.status === 403) {
-                            this.props.history.push('/login')
-
-                        } else {
-                            console.log(profile)
-                            this.props.reconnect(profile)
+                            console.log("line 109")
                             this.helper();
                             // this.setState({user: this.props.user})
                         }
                     })
-                    .catch(error => {
-                        console.log(error)
-                        this.props.history.push('/login')
-                    })
+
             }
 
+        }
+    }
+
+    componentDidMount() {
+        console.log("component did mount")
+        console.log(this.props)
+        if (this.props.uId != undefined || this.props.uId != null) {
+            console.log(this.props.uId)
+            if (this.props.user == '') {
+                profile()
+                    .then(profile => {
+                        console.log(profile)
+                        if (profile == undefined || profile.status === 403) {
+                            // this.props.history.push('/login')
+                            console.log("not logged in")
+
+                        } else {
+                            console.log(profile)
+                            this.props.reconnect(profile)
+
+                        }
+                    })
+            }
+            getUser(this.props.uId)
+                .then((user) => {
+                    console.log(user)
+                    this.setState({
+                        username: user.username,
+                        email: user.email,
+                        favList: user.favouriteMusic
+                    })
+
+
+                })
+        }
+        else if (this.props.user == '') {
+            console.log(this.props.user)
+            profile()
+                .then(profile => {
+                    console.log(profile)
+                    if (profile == undefined || profile.status === 403) {
+                        // this.props.history.push('/login')
+                        console.log("not logged in")
+
+                    } else {
+                        console.log(profile)
+                        this.props.reconnect(profile)
+                        console.log("line 109")
+                        this.helper();
+                        // this.setState({user: this.props.user})
+                    }
+                })
 
         }
+        else {
+            this.helper();
+        }
+
 
     }
 
@@ -282,9 +293,10 @@ class Profile extends React.Component {
 
                                             <Link to={`/song/${music.musicId}`}>{music.title}</Link>
 
-                                            {this.props.uId == undefined ?   <i onClick={() => this.removeFavorite(music.musicId)}
-                                                                                className={`fa fa-trash  fa fa-2x   ${styles.floatRight} ${styles.pointer}`}></i>
-                                            : null}
+                                            {this.props.uId == undefined ?
+                                                <i onClick={() => this.removeFavorite(music.musicId)}
+                                                   className={`fa fa-trash  fa fa-2x   ${styles.floatRight} ${styles.pointer}`}></i>
+                                                : null}
 
                                         </li>
 

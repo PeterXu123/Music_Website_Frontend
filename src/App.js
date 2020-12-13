@@ -18,16 +18,21 @@ function App() {
             <Route exact path={"/song"} component={HomePageComponent}/>
             <Route exact path={"/register"} component = {Register}/>
             <Route exact path={"/login"} component = {Login}/>
-            <Route exact path={"/profile"} component = {Profile}/>
-            <Route
-                path="/profile/:uid"
-                render={(props) =>
-                    <Profile
-                        {...props}
-                        uId = {props.match.params.uid}
-                    />
-                }
-            />
+            <Switch>
+                <Route
+                    path="/profile/:uid"
+                    exact
+                    render={(props) =>
+                        <Profile
+                            {...props}
+                            uId = {props.match.params.uid}
+                        />
+                    }
+                />
+                <Route exact path={"/profile"} component = {Profile}/>
+            </Switch>
+
+
             <Route exact path={"/manage"} component={ManageUserComponent }/>
 
 
