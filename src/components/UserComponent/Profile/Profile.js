@@ -164,6 +164,7 @@ class Profile extends React.Component {
     componentDidMount() {
         console.log("component did mount")
         console.log(this.props)
+
         if (this.props.uId != undefined || this.props.uId != null) {
             console.log(this.props.uId)
             if (this.props.user == '') {
@@ -207,6 +208,7 @@ class Profile extends React.Component {
                     if (profile == undefined || profile.status === 403) {
                         // this.props.history.push('/login')
                         console.log("not logged in")
+                        this.props.history.push('/login')
 
                     } else {
                         console.log(profile)
