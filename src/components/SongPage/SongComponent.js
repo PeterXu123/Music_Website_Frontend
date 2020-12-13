@@ -176,7 +176,8 @@ const SongComponent = (props) => {
     const addToFavorite = (songId, userId) => {
         let record = {
             songId: songId,
-            userId: userId
+            userId: userId,
+
         }
         addToFav(record).then(r => {
             alert("added this song to favorite songs");
@@ -286,6 +287,7 @@ const SongComponent = (props) => {
                                 {
                                     commentList !== null && commentList.length !== 0 && commentList.comments.map(comment =>
                                         <CommentComponent
+                                            key = {comment._id}
                                             content = {comment.content}
                                             username = {comment.userName}
                                             userId = {comment.userId}
