@@ -115,7 +115,7 @@ const Friends = (props) => {
                     <li className="list-group-item">
                         <Link to={`/profile/${friend._id}`}>{friend.username}</Link>
 
-                    <i className={`fa fa-close ${styles.floatRight}`} onClick={() => deleteFriend(friend) }></i>
+                    <i className={`fa fa-close ${styles.floatRight}`} onClick={() => deleteFriend(friend._id) }></i>
 
                     </li>) : null}
 
