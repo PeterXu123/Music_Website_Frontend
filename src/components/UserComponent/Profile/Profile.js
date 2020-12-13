@@ -83,7 +83,7 @@ class Profile extends React.Component {
         console.log("component did update")
         console.log(prevProps)
         console.log(this.props)
-        if (this.props.uId != prevProps.uId) {
+        if (this.props.uId != prevProps.uId  ) {
             if (this.props.uId != undefined || this.props.uId != null) {
                 getUser(this.props.uId)
                     .then((user) => {
@@ -116,6 +116,41 @@ class Profile extends React.Component {
 
             }
 
+        }
+        else {
+            if ((this.props.uId == undefined || this.props.uId == null) && this.props.user == '') {
+                console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++")
+                console.log(this.props.user)
+                profile()
+                    .then(profile => {
+                        console.log(profile)
+                        if (profile == undefined || profile.status === 403) {
+                            // this.props.history.push('/login')
+                            console.log("not logged in")
+
+                        } else {
+                            console.log(profile)
+                            this.props.reconnect(profile)
+                            console.log("line 109")
+                            this.helper();
+                            // this.setState({user: this.props.user})
+                        }
+                    })
+            }
+            else {
+                console.log("-----------------------------")
+                // getUser(this.props.uId)
+                //     .then((user) => {
+                //         console.log(user)
+                //         this.setState({
+                //             username: user.username,
+                //             email: user.email,
+                //             favList: user.favouriteMusic
+                //         })
+                //
+                //
+                //     })
+            }
         }
     }
 

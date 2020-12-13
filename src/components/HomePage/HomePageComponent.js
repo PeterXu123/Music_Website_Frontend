@@ -32,6 +32,7 @@ class HomePageComponent extends Component {
             }, 1000 * 60 * 60)
         }
 
+
     }
 
     componentDidMount() {
@@ -41,11 +42,12 @@ class HomePageComponent extends Component {
             profile()
                 .then(profile => {
                     console.log(profile)
-                    if (profile == undefined) {
+                    if (profile == undefined || profile.status == 403) {
                         console.log("nothing happen")
                         clearTimeout(this.time)
                         this.props.logout();
                     } else {
+                        console.log(profile)
                         console.log(profile)
                         this.props.reconnect(profile)
                         this.helper();

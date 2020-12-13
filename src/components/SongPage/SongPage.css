@@ -6,10 +6,23 @@
     color: darkgray;
 }
 
+
+
 div.ex1 {
     background-color: white;
     width: 350px;
     margin-right: 1%;
     height: 200px;
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden
+}
+
+@media only screen and (min-width: 1000px) {
+    div.ex1 {
+        background-color: white;
+        width: 600px;
+        margin-right: 1%;
+        height: 200px;
+        overflow: scroll;
+    }
 }
