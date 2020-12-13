@@ -126,6 +126,8 @@ const SongComponent = (props) => {
             profile()
                 .then(profile => {
                     if (profile == undefined || profile.status == 403) {
+                        addMusicOrGet(props.songId, songInfo.name)
+                            .then((music) => renderAllComments())
                         console.log("this is guest")
                     } else {
                         console.log(profile)
