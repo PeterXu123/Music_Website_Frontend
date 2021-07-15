@@ -112,7 +112,7 @@ const Friends = (props) => {
             <h3>Friends</h3>
             <div className="list-group">
                 {friends.length > 0 ? friends.map(friend =>
-                    <li className="list-group-item">
+                    <li className="list-group-item" key={friend._id}>
                         <Link to={`/profile/${friend._id}`}>{friend.username}</Link>
 
                     <i className={`fa fa-close ${styles.floatRight} ${styles.pointer}`} onClick={() => deleteFriend(friend._id) }></i>

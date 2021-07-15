@@ -29,10 +29,10 @@ class Navbar extends Component {
                 <NavLink to="/" exact activeClassName={`${styles.selected}`}>
                     Home
                 </NavLink>
-                &nbsp;
-                <NavLink to="/privacy" exact activeClassName={`${styles.selected} `}>
-                    Privacy
-                </NavLink>
+                {/*&nbsp;*/}
+                {/*<NavLink to="/privacy" exact activeClassName={`${styles.selected} `}>*/}
+                {/*    Privacy*/}
+                {/*</NavLink>*/}
                 {/*<a className="navbar-brand" href="/">Home</a>*/}
                 {this.props.user !== '' ?
                     <button className={` ${styles.t} ${styles.logout} btn`} onClick={this.onLogout}>
