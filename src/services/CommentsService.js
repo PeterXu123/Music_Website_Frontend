@@ -1,10 +1,11 @@
 const localUrl = 'http://localhost:8887/comments'
 const serverUrl = 'https://webdev-music-website-server.herokuapp.com/comments'
+const awsServerUrl = "http://musicbackend-env.eba-smtfbcm3.us-east-2.elasticbeanstalk.com/comments"
 
 
 export const createComment = (comObj) => {
 
-    return fetch(`${serverUrl}/createComment`, {
+    return fetch(`${awsServerUrl}/createComment`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(comObj)
@@ -19,7 +20,7 @@ export const createComment = (comObj) => {
 
 export const findCommentsForSong = (songId) => {
 
-    return fetch(`${serverUrl}/findAllComments/${songId}`, {
+    return fetch(`${awsServerUrl}/findAllComments/${songId}`, {
         method: 'Get',
         headers: {'Content-Type': 'application/json'},
     })
@@ -34,7 +35,7 @@ export const findCommentsForSong = (songId) => {
 
 export const deleteComment = (comId) => {
 
-    return fetch(`${serverUrl}/deleteComment/${comId}`, {
+    return fetch(`${awsServerUrl}/deleteComment/${comId}`, {
         method: 'DELETE',
         headers: {'Content-Type': 'application/json'},
     })

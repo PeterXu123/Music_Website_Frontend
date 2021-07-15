@@ -18,6 +18,7 @@ class HomePageComponent extends Component {
         this.time = '';
     }
     helper = () => {
+
         if (this.props.user != ''){
 
             clearTimeout(this.time)

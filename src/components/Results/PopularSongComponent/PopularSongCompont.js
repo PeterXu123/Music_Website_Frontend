@@ -15,32 +15,41 @@ const PopularSongComponent = (props) => {
     const [fav, setFav] = useState([])
 
     useEffect(() => {
-        console.log("fffff")
         setLoading(true);
         searchPopularSongs().then(res => {
+            console.log(res)
             setLoading(false);
             setSongs(res.tracks)
         })
+        console.log(props.user)
         if (props.user !== '') {
             getUser(props.user.userId)
                 .then(favMusics => {
                     console.log(favMusics)
-                    setFav(favMusics.favouriteMusic)
+                    if (favMusics){
+                        setFav(favMusics.favouriteMusic)
+                    }
+
                 })
 
         } else {
             profile()
                 .then(profile => {
+                    console.log(profile)
                     if (profile == undefined || profile.status == 403) {
 
                         console.log("this is guest")
-                    } else {
+                    }
+                    else {
                         console.log(profile)
                         props.reconnect(profile)
                         getUser(profile.userId)
                             .then(favMusics => {
                                 console.log(favMusics)
-                                setFav(favMusics.favouriteMusic)
+                                if (favMusics) {
+                                    setFav(favMusics.favouriteMusic)
+                                }
+
 
                             })
 
