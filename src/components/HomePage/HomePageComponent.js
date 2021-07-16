@@ -75,6 +75,8 @@ class HomePageComponent extends Component {
 
     
     render() {
+        let include = this.props.location.pathname;
+        console.log(include)
         return (
             <div className={styles.center}>
                 <Navbar></Navbar>
@@ -94,9 +96,9 @@ class HomePageComponent extends Component {
                         Search
                     </button>
                 </div>
-                <input className={`${styles.rbutton}`} type={'radio'} name={"op"} defaultChecked onChange={e => this.setState({op: 'artist'})}/> artist
+                <input className={`${styles.rbutton}`} type={'radio'} name={"op"} defaultChecked={include.includes('artist') || include == '/'} onChange={e => this.setState({op: 'artist'})}/> artist
                 &nbsp;
-                <input className={`${styles.rbutton}`} type={'radio'} name={"op"} onChange={e => this.setState({op: 'song'})}/> song
+                <input className={`${styles.rbutton}`} type={'radio'} name={"op"} defaultChecked={include.includes('song')} onChange={e => this.setState({op: 'song'})}/> song
 
                 {
                     this.props.location.pathname !== '/song' && this.props.location.pathname !== '/artist' ?
