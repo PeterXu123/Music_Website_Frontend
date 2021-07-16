@@ -8,7 +8,6 @@ export const searchArtist = (artistName) => {
         return fetch(`${serverUrl}/artist`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            mode: 'no-cors',
             body: JSON.stringify(t)
         })
             .then(response => response.json())
@@ -22,7 +21,6 @@ export const searchArtistById = (id) => {
     let t = {id: id};
     return fetch(`${serverUrl}/artist/id`, {
         method: 'POST',
-        mode: 'no-cors',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(t)
     })
@@ -38,7 +36,6 @@ export const searchSong = (song) => {
     return fetch(`${serverUrl}/song`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        mode: 'no-cors',
         body: JSON.stringify(t)
     })
         .then(response => response.json())
@@ -53,7 +50,6 @@ export const searchAlbumsForArtist = (id) => {
     let t = {id: id};
     return fetch(`${serverUrl}/artist/albums`, {
         method: 'POST',
-        mode: 'no-cors',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(t)
     })
@@ -66,7 +62,6 @@ export const searchSongsForAlbum = (id) => {
     let t = {id: id};
     return fetch(`${serverUrl}/album/songs`, {
         method: 'POST',
-        mode: 'no-cors',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(t)
     })
@@ -80,7 +75,6 @@ export const searchSongsById = (songId) => {
     let t = {id: songId};
     return fetch(`${serverUrl}/song/id`, {
         method: 'POST',
-        mode: 'no-cors',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(t)
     })
@@ -93,7 +87,6 @@ export const searchPopularSongs = () => {
     console.log("hererererer")
     return fetch(`${serverUrl}/popular`, {
         method: 'POST',
-        mode: 'no-cors',
         headers: {'Content-Type': 'application/json'},
     })
         .then(response => response.json())
