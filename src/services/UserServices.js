@@ -6,6 +6,7 @@ export const register = (user) =>
     fetch(`${serverUrl}/users/register`, {
         method: 'POST',
         body: JSON.stringify(user),
+        mode: 'no-cors',
         headers: {
             'content-type': 'application/json'
         },
@@ -18,6 +19,7 @@ export const updateUser = (userId, user) => {
     return fetch(`${serverUrl}/users/update/${userId}`, {
         method: 'PUT',
         body: JSON.stringify(user),
+        mode: 'no-cors',
         headers: {
             'content-type': 'application/json'
         },
@@ -31,6 +33,7 @@ export const login = (user) =>
     fetch(`${serverUrl}/users/login`, {
         method: 'POST',
         body: JSON.stringify(user),
+        mode: 'no-cors',
         headers: {
             'content-type': 'application/json'
         },
@@ -43,6 +46,7 @@ export const login = (user) =>
 export const logout = () =>
     fetch(`${serverUrl}/users/logout`, {
         method: 'GET',
+        mode: 'no-cors',
         headers: {
             'content-type': 'application/json'
         },
@@ -54,6 +58,7 @@ export const logout = () =>
 export const profile = () =>
     fetch(`${serverUrl}/users/profile`, {
         method: 'GET',
+        mode: 'no-cors',
         credentials: "include"
     }).then(response => {
         let b = response.json()
@@ -73,6 +78,7 @@ export const addToFav = (record) =>
 
     fetch(`${serverUrl}/users/addToFav`, {
         method: 'POST',
+        mode: 'no-cors',
         body: JSON.stringify(record),
         headers: {
             'content-type': 'application/json'
@@ -90,6 +96,7 @@ export const removeFav = (record) =>
 
     fetch(`${serverUrl}/users/removeFav`, {
         method: 'PUT',
+        mode: 'no-cors',
         body: JSON.stringify(record),
         headers: {
             'content-type': 'application/json'
@@ -106,6 +113,7 @@ export const addToFriendList = (fobj) =>
 
     fetch(`${serverUrl}/users/addFriend`, {
         method: 'POST',
+        mode: 'no-cors',
         body: JSON.stringify(fobj),
         headers: {
             'content-type': 'application/json'
@@ -121,6 +129,7 @@ export const removeFromFriendList = (fobj) =>
 
     fetch(`${serverUrl}/users/removeFriend`, {
         method: 'PUT',
+        mode: 'no-cors',
         body: JSON.stringify(fobj),
         headers: {
             'content-type': 'application/json'
