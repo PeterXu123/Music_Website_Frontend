@@ -5,7 +5,7 @@ const awsServerUrl = "http://musicbackend-env.eba-smtfbcm3.us-east-2.elasticbean
 
 export const searchArtist = (artistName) => {
         let t = {content: artistName};
-        return fetch(`${localUrl}/artist`, {
+        return fetch(`${serverUrl}/artist`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(t)
@@ -19,7 +19,7 @@ export const searchArtist = (artistName) => {
 
 export const searchArtistById = (id) => {
     let t = {id: id};
-    return fetch(`${localUrl}/artist/id`, {
+    return fetch(`${serverUrl}/artist/id`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(t)
@@ -33,7 +33,7 @@ export const searchArtistById = (id) => {
 
 export const searchSong = (song) => {
     let t = {content: song};
-    return fetch(`${localUrl}/song`, {
+    return fetch(`${serverUrl}/song`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(t)
@@ -48,7 +48,7 @@ export const searchSong = (song) => {
 
 export const searchAlbumsForArtist = (id) => {
     let t = {id: id};
-    return fetch(`${localUrl}/artist/albums`, {
+    return fetch(`${serverUrl}/artist/albums`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(t)
@@ -60,7 +60,7 @@ export const searchAlbumsForArtist = (id) => {
 
 export const searchSongsForAlbum = (id) => {
     let t = {id: id};
-    return fetch(`${localUrl}/album/songs`, {
+    return fetch(`${serverUrl}/album/songs`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(t)
@@ -73,7 +73,7 @@ export const searchSongsForAlbum = (id) => {
 
 export const searchSongsById = (songId) => {
     let t = {id: songId};
-    return fetch(`${localUrl}/song/id`, {
+    return fetch(`${serverUrl}/song/id`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(t)
@@ -84,8 +84,8 @@ export const searchSongsById = (songId) => {
 };
 
 export const searchPopularSongs = () => {
-    console.log("hererererer")
-    return fetch(`${localUrl}/popular`, {
+
+    return fetch(`${serverUrl}/popular`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
     })
