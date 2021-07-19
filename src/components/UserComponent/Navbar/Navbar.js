@@ -25,7 +25,7 @@ class Navbar extends Component {
 
     render() {
         return (
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <nav className={`navbar navbar-expand-lg ${styles.mynavColor} `}>
                 <NavLink to="/" exact activeClassName={`${styles.selected}`}>
                     Home
                 </NavLink>

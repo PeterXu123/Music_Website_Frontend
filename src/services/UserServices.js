@@ -3,7 +3,7 @@ const serverUrl = 'https://webdev-music-website-server.herokuapp.com'
 const awsServerUrl = "http://musicbackend-env.eba-smtfbcm3.us-east-2.elasticbeanstalk.com"
 export const register = (user) =>
 
-    fetch(`${serverUrl}/users/register`, {
+    fetch(`${localUrl}/users/register`, {
         method: 'POST',
         body: JSON.stringify(user),
         headers: {
@@ -15,7 +15,7 @@ export const register = (user) =>
 
 export const updateUser = (userId, user) => {
     console.log(userId)
-    return fetch(`${serverUrl}/users/update/${userId}`, {
+    return fetch(`${localUrl}/users/update/${userId}`, {
         method: 'PUT',
         body: JSON.stringify(user),
         headers: {
@@ -28,7 +28,7 @@ export const updateUser = (userId, user) => {
 
 
 export const login = (user) =>
-    fetch(`${serverUrl}/users/login`, {
+    fetch(`${localUrl}/users/login`, {
         method: 'POST',
         body: JSON.stringify(user),
         headers: {
@@ -41,7 +41,7 @@ export const login = (user) =>
     .catch(error => console.log(error))
 
 export const logout = () =>
-    fetch(`${serverUrl}/users/logout`, {
+    fetch(`${localUrl}/users/logout`, {
         method: 'GET',
         headers: {
             'content-type': 'application/json'
@@ -52,7 +52,7 @@ export const logout = () =>
 
 
 export const profile = () =>
-    fetch(`${serverUrl}/users/profile`, {
+    fetch(`${localUrl}/users/profile`, {
         method: 'GET',
         credentials: "include"
     }).then(response => {
@@ -71,7 +71,7 @@ export const profile = () =>
 
 export const addToFav = (record) =>
 
-    fetch(`${serverUrl}/users/addToFav`, {
+    fetch(`${localUrl}/users/addToFav`, {
         method: 'POST',
         body: JSON.stringify(record),
         headers: {
@@ -88,7 +88,7 @@ export const addToFav = (record) =>
 
 export const removeFav = (record) =>
 
-    fetch(`${serverUrl}/users/removeFav`, {
+    fetch(`${localUrl}/users/removeFav`, {
         method: 'PUT',
         body: JSON.stringify(record),
         headers: {
@@ -104,7 +104,7 @@ export const removeFav = (record) =>
 
 export const addToFriendList = (fobj) =>
 
-    fetch(`${serverUrl}/users/addFriend`, {
+    fetch(`${localUrl}/users/addFriend`, {
         method: 'POST',
         body: JSON.stringify(fobj),
         headers: {
@@ -119,7 +119,7 @@ export const addToFriendList = (fobj) =>
 
 export const removeFromFriendList = (fobj) =>
 
-    fetch(`${serverUrl}/users/removeFriend`, {
+    fetch(`${localUrl}/users/removeFriend`, {
         method: 'PUT',
         body: JSON.stringify(fobj),
         headers: {
@@ -136,7 +136,7 @@ export const removeFromFriendList = (fobj) =>
 export const getUser = (uid) => {
 
     console.log(uid)
-    return fetch(`${serverUrl}/users/find/${uid}`, {
+    return fetch(`${localUrl}/users/find/${uid}`, {
         method: 'Get',
         headers: {
             'content-type': 'application/json'
@@ -151,7 +151,7 @@ export const getUser = (uid) => {
 export const getFriendsById = (uid) => {
 
     console.log(uid)
-    return fetch(`${serverUrl}/users/myFriends/${uid}`, {
+    return fetch(`${localUrl}/users/myFriends/${uid}`, {
         method: 'Get',
         headers: {
             'content-type': 'application/json'
@@ -167,7 +167,7 @@ export const getFriendsById = (uid) => {
 
 export const getAllUser = () =>
 
-    fetch(`${serverUrl}/users/findAllUser`, {
+    fetch(`${localUrl}/users/findAllUser`, {
         method: 'Get',
         headers: {
             'content-type': 'application/json'
@@ -181,7 +181,7 @@ export const getAllUser = () =>
 
 export const removeUser = (uid) =>
 
-    fetch(`${serverUrl}/users/removeUser/${uid}`, {
+    fetch(`${localUrl}/users/removeUser/${uid}`, {
         method: 'DELETE',
         headers: {
             'content-type': 'application/json'
@@ -195,7 +195,7 @@ export const removeUser = (uid) =>
 
 export const getRole = (uid) => {
 
-    return fetch(`${serverUrl}/users/getRole/${uid}`, {
+    return fetch(`${localUrl}/users/getRole/${uid}`, {
         method: 'GET',
         headers: {
             'content-type': 'application/json'

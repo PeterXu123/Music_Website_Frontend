@@ -5,7 +5,7 @@ const awsServerUrl = "http://musicbackend-env.eba-smtfbcm3.us-east-2.elasticbean
 
 export const createComment = (comObj) => {
 
-    return fetch(`${serverUrl}/createComment`, {
+    return fetch(`${localUrl}/createComment`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(comObj)
@@ -20,7 +20,7 @@ export const createComment = (comObj) => {
 
 export const findCommentsForSong = (songId) => {
 
-    return fetch(`${serverUrl}/findAllComments/${songId}`, {
+    return fetch(`${localUrl}/findAllComments/${songId}`, {
         method: 'Get',
         headers: {'Content-Type': 'application/json'},
     })
@@ -35,7 +35,7 @@ export const findCommentsForSong = (songId) => {
 
 export const deleteComment = (comId) => {
 
-    return fetch(`${serverUrl}/deleteComment/${comId}`, {
+    return fetch(`${localUrl}/deleteComment/${comId}`, {
         method: 'DELETE',
         headers: {'Content-Type': 'application/json'},
     })

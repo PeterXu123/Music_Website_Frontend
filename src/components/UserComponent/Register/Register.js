@@ -1,6 +1,6 @@
 import React from "react";
 import {register} from "../../../services/UserServices";
-import styles from "./Register.css"
+import styles from "./Register.module.css"
 import Navbar from "../Navbar/Navbar";
 import {connect} from "react-redux";
 
@@ -11,6 +11,7 @@ class Register extends React.Component {
         email: '',
         password: '',
         verifyPassword: '',
+        gender: "male",
         valid: false
     }
     checkLoinInform = () => {
@@ -102,6 +103,21 @@ class Register extends React.Component {
                         placeholder="verify password"
                         required={true}
                     />
+
+
+                    <div className={styles.option}>
+                        <label id={'gender'}>  Your Gender </label>
+                        &nbsp;
+                        <select onChange={(e) => {this.setState({gender: e.target.value})}}>
+                            <option value={'male'}>Male</option>
+                            <option value={'female'}>Female</option>
+                            <option value={'other'}>Other</option>
+                        </select>
+
+                    </div>
+
+
+
                     <button
                         disabled={!this.state.valid}
                         onClick={() => this.register(this.state)}

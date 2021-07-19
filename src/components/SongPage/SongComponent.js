@@ -220,8 +220,11 @@ const SongComponent = (props) => {
             musicId: props.songId,
             userId: props.user.userId,
             username: props.user.username,
-            content: com
+            content: com,
+            gender: props.user.gender,
+            timestamp: new Date().toDateString()
         }
+        console.log(props.user)
         createComment(comObj).then((com) => {
             console.log(com)
             setComments('');
@@ -237,9 +240,7 @@ const SongComponent = (props) => {
     return (
         <div>
             <Navbar></Navbar>
-            <li className="btn" onClick={() => goBack()}>
-                Back
-            </li>
+
 
             <div className={styles.center}>
                 {songInfo === '' ? null :
@@ -289,10 +290,12 @@ const SongComponent = (props) => {
 
                             <div className="ex1">
                                 {
-                                    commentList !== null && commentList.length !== 0 && commentList.comments.map(comment =>
+                                    commentList != null && commentList.length !== 0 && commentList.comments.map(comment =>
                                         <CommentComponent
                                             key = {comment._id}
                                             content = {comment.content}
+                                            timestamp = {comment.timestamp}
+                                            gender = {comment.gender}
                                             username = {comment.userName}
                                             userId = {comment.userId}
                                             sessionId = {props.user.userId}
@@ -320,6 +323,7 @@ const SongComponent = (props) => {
                                 <Button
                                     disabled={props.user === null || props.user ===  ''}
                                     onClick={()=> addComment(comments)} content='Add Comments' labelPosition='left' icon='edit' primary />
+                                <Button onClick={() => {console.log(props.user)}}>test </Button>
                             </Form>
 
                         }

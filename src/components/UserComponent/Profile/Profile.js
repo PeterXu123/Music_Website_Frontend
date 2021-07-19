@@ -26,6 +26,7 @@ class Profile extends React.Component {
         username: '',
         email: '',
         phoneNumber: '',
+        gender: 'male',
         favList: [],
         friendList: [],
 
@@ -57,13 +58,17 @@ class Profile extends React.Component {
         getUser(this.props.user.userId)
             .then((user) => {
                 console.log(user)
-                this.setState({favList: user.favouriteMusic, friendList: user.friends})
+                if (user != undefined){
+                    this.setState({favList: user.favouriteMusic, friendList: user.friends})
+                }
+
             })
         console.log(this.state.friendList)
         this.setState({
             username: this.props.user.username,
             email: this.props.user.email,
-            phoneNumber: this.props.user.phoneNumber
+            phoneNumber: this.props.user.phoneNumber,
+            gender: !this.props.user.gender ? 'male' : this.props.user.gender
         })
 
 
@@ -291,14 +296,16 @@ class Profile extends React.Component {
     }
 
     updateProfile = () => {
-        console.log(this.props.user)
-        updateUser(this.props.user.userId, {username: this.state.username, phoneNumber: this.state.phoneNumber})
+        console.log(this.props.user.userId)
+        updateUser(this.props.user.userId, {username: this.state.username, phoneNumber: this.state.phoneNumber, gender: this.state.gender})
             .then((updatedUser) => {
                 console.log(updatedUser)
-                this.props.reconnect(updateUser)
-                alert("save successfully")
+                this.props.reconnect(updatedUser)
+                console.log(this.props.user)
+                alert("save successfully " + updatedUser.gender)
 
             })
+            .catch((error) => console.log(error))
     }
 
 
@@ -336,6 +343,23 @@ class Profile extends React.Component {
                                     id={"username"}
                                     placeholder="username"/>
                             </div>
+
+                                <div className={styles.option}>
+                                    <label id={'gender'}>  Your Gender </label>
+                                    &nbsp;
+                                    <select value={this.state.gender} disabled={this.props.uId != undefined}
+                                            onChange={(e) => {this.setState({gender: e.target.value})}}>
+                                        <option value={'male'}>Male</option>
+                                        <option value={'female'}>Female</option>
+                                        <option value={'other'}>Other</option>
+                                    </select>
+
+                            </div>
+
+
+
+
+
                             {this.props.uId != undefined ? null :
                                 <div className="form-group">
                                     <label htmlFor="phoneNumber">Phone Number</label>
@@ -353,6 +377,7 @@ class Profile extends React.Component {
                                         id={"phoneNumber"}
                                         placeholder="phone number"/>
                                 </div>
+
                             }
 
 
@@ -362,7 +387,7 @@ class Profile extends React.Component {
                     <div>
                         {this.props.uId != undefined ? null :
                             <React.Fragment>
-                                <button onClick={() => this.updateProfile(this.props.user.userId, this.state.user)}
+                                <button onClick={() => this.updateProfile()}
                                         className="btn btn-success">update profile
                                 </button>
                                 &nbsp;
@@ -413,7 +438,7 @@ class Profile extends React.Component {
                             <div className="list-group">
                                 <label>Favourite songs</label>
                                 {this.state.favList.map(music =>
-                                    <div>
+                                    <div key={music.musicId}>
                                         <li className="list-group-item">
 
                                             <Link to={`/song/${music.musicId}`}>{music.title}</Link>
